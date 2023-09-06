@@ -1,27 +1,27 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import axios from "axios";
 import { Wand2 } from "lucide-react";
-// import { Book } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
+import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { useUser } from "@clerk/nextjs";
 
 import { ImageUpload } from "@/components/image-upload";
 
@@ -38,12 +38,19 @@ const formSchema = z.object({
   src: z.string().min(1, {
     message: "Image is required.",
   }),
+  userId: z.string().min(1, {
+    message: "User id is required.",
+  }),
+  userName: z.string().min(1, {
+    message: "User name is required.",
+  }),
 });
 
 export const NewBookForm = ({}) => {
   const { toast } = useToast();
   const router = useRouter();
-
+  const { user } = useUser();
+  console.log(user);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,6 +58,8 @@ export const NewBookForm = ({}) => {
       description: "",
       src: "",
       author: "",
+      userId: user?.id ?? "Anomynous",
+      userName: user?.firstName ?? "Anomynous",
     },
   });
 
@@ -59,7 +68,6 @@ export const NewBookForm = ({}) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post("/api/book", values);
-
       toast({
         description: "Success.",
         duration: 3000,
