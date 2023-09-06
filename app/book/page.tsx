@@ -1,3 +1,10 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { FC } from "react";
 
 interface pageProps {}
@@ -13,10 +20,23 @@ const page: FC<pageProps> = async ({}) => {
     }
   );
   const data = await books.json();
-  console.log(data);
+  console.log(data, "DATA");
   return (
     <>
       <div>All Books will be displayed here</div>
+      {data.response.items.map((book: any, index: any) => (
+        <div key={index}>
+          <Card>
+            <CardHeader>
+              <CardTitle>{book.name}</CardTitle>
+              <CardDescription>{book.author}</CardDescription>
+              <CardContent>
+                <img src={book.src} alt="book" />
+              </CardContent>
+            </CardHeader>
+          </Card>
+        </div>
+      ))}
     </>
   );
 };
