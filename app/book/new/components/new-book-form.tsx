@@ -9,13 +9,13 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -38,10 +38,10 @@ const formSchema = z.object({
   src: z.string().min(1, {
     message: "Image is required.",
   }),
-  userId: z.string().min(1, {
+  user_id: z.string().min(1, {
     message: "User id is required.",
   }),
-  userName: z.string().min(1, {
+  user_name: z.string().min(1, {
     message: "User name is required.",
   }),
 });
@@ -58,8 +58,8 @@ export const NewBookForm = ({}) => {
       description: "",
       src: "",
       author: "",
-      userId: user?.id ?? "Anomynous",
-      userName: user?.firstName ?? "Anomynous",
+      user_id: user?.id ?? "Anomynous",
+      user_name: user?.firstName ?? "Anomynous",
     },
   });
 
@@ -67,14 +67,27 @@ export const NewBookForm = ({}) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/book", values);
+      console.log(values);
+      await fetch("https://middle-indigo.cmd.outerbase.io/publishABook", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: values.user_id,
+          description: values.description,
+          author: values.author,
+          name: values.name,
+          user_name: values.user_name,
+          src: values.src,
+        }),
+      });
       toast({
         description: "Success.",
         duration: 3000,
       });
-
       router.refresh();
-      router.push("/");
+      router.push("/book");
     } catch (error) {
       toast({
         variant: "destructive",
