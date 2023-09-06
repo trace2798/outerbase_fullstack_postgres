@@ -24,14 +24,14 @@ model Book {
 }
 
 model Summary {
-  id        String   @id @default(uuid())
+   id          Int      @id @default(autoincrement())
   content   String
   createdAt DateTime @default(now())
 
-  bookId Int
-  userId String
+  book_id Int
+  user_id String
 
-  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  book Book @relation(fields: [book_id], references: [id], onDelete: Cascade)
 
-  @@index([bookId])
+  @@index([book_id])
 }
