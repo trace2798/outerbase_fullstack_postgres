@@ -1,9 +1,9 @@
 "use client";
 
+import { Book } from "lucide-react";
 import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
 
 interface ImageUploadProps {
   value: string;
@@ -28,9 +28,12 @@ export const ImageUpload = ({
 
   return (
     <div className="space-y-4 w-full flex flex-col justify-center items-center">
-      
-      <CldUploadButton options={{ maxFiles: 1 }} onUpload={(result: any) => onChange(result.info.secure_url)} uploadPreset="zb8bzdvq">
-        <div 
+      <CldUploadButton
+        options={{ maxFiles: 1 }}
+        onUpload={(result: any) => onChange(result.info.secure_url)}
+        uploadPreset="zb8bzdvq"
+      >
+        <div
           className="
             p-4 
             border-4 
@@ -46,13 +49,8 @@ export const ImageUpload = ({
             justify-center
           "
         >
-          <div className="relative h-40 w-40">
-            <Image
-              fill
-              alt="Upload"
-              src={value || "/placeholder.svg"}
-              className="rounded-lg object-cover"
-            />
+          <div className="relative h-40 w-40 flex text-center items-center">
+            Click to add image of the book cover
           </div>
         </div>
       </CldUploadButton>
