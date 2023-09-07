@@ -73,7 +73,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
         duration: 3000,
       });
       router.refresh();
-      router.push("/book");
+      router.push(`/book/${book_id}`);
     } catch (error) {
       toast({
         variant: "destructive",
@@ -84,7 +84,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
   };
 
   return (
-    <div className="h-full p-4 space-y-2 w-full mx-[5vw]">
+    <div className="h-full p-4 space-y-2 w-full">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

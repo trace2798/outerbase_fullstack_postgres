@@ -10,7 +10,7 @@ export default function Home() {
           <h1 className="text-5xl font-satoshiBlack">
             SumRev - Reviews, Summaries and more
             <br />
-            <h1 className="text-3xl mt-5">
+            <p className="text-3xl mt-5">
               Made Possible by{" "}
               <a
                 href="https://passage.1password.com/"
@@ -19,17 +19,17 @@ export default function Home() {
               >
                 Outerbase
               </a>
-            </h1>
+            </p>
           </h1>
           <div className="md:hidden">
-            <Image
+            {/* <Image
               src="/images/meet.png"
               alt="hero-image"
               width={500}
               height={500}
               className="rounded-xl"
               loading="lazy"
-            />
+            /> */}
           </div>
           <h2 className="text-3xl font-satoshiBold mt-10">
             Easily share and review books and products you love{" "}

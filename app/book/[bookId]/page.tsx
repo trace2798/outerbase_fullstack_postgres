@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SummaryForm } from "./components/SummaryForm";
+import { formatTimeToNow } from "@/lib/utils";
 
 interface BookIdPageProps {
   params: {
@@ -19,35 +20,88 @@ interface BookIdPageProps {
 const page = async ({ params }: BookIdPageProps) => {
   const { userId } = auth();
 
-  if (!userId) {
-    return redirectToSignIn();
-  }
+  // if (!userId) {
+  //   return redirectToSignIn();
+  // }
 
   const idInInt = Number(params.bookId);
+
+  const books = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/getBookById?id=${idInInt}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  const data = await books.json();
+  console.log(data.response, "DATA");
 
   const book = await prismadb.book.findUnique({
     where: {
       id: idInInt,
-      user_id: userId,
+      // user_id: userId,
     },
   });
   if (book === null) {
     return <h1>No Info Found</h1>;
   }
+  const summaries = await prismadb.summary.findMany({
+    where: {
+      book_id: idInInt,
+    },
+  });
+
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-center max-md:items-center lg:justify-between">
-        <Card className="max-w-lg">
-          <CardHeader className="">
-            <CardTitle className="text-base">{book.name}</CardTitle>
-            <CardDescription>By {book.author}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <img src={book.src} alt="book" />
-            <p className="mt-5">{book.description}</p>
-          </CardContent>
-        </Card>
-        <SummaryForm book_id={book.id.toString()} />
+      <div className="flex flex-col lg:flex-row w-full justify-evenly mb-10">
+        <div className="w-full lg:w-1/3">
+          {data.response.items.map((book: any, index: any) => (
+            <Card>
+              <CardHeader className="">
+                <CardTitle className="text-base">{book.name}</CardTitle>
+                <CardDescription>By {book.author}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <img src={book.src} alt="book" />
+                <p className="mt-5">{book.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+          {/* <Card>
+            <CardHeader className="">
+              <CardTitle className="text-base">{book.name}</CardTitle>
+              <CardDescription>By {book.author}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <img src={book.src} alt="book" />
+              <p className="mt-5">{book.description}</p>
+            </CardContent>
+          </Card> */}
+        </div>
+        <div className="w-full lg:w-2/3 lg:mx-[5vw]">
+          <div>
+            {" "}
+            {userId && <SummaryForm book_id={book.id.toString()} />}
+            {/* <SummaryForm book_id={book.id.toString()} /> */}
+          </div>
+          <div className="space-y-4">
+            {summaries.map((summary) => (
+              <Card key={summary.id} className="w-full">
+                <CardHeader>
+                  <CardTitle className="text-base">{summary.title}</CardTitle>
+                  <CardDescription>
+                    By {summary.user_name} {formatTimeToNow(summary.createdAt)}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="mt-5">{summary.content}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );
