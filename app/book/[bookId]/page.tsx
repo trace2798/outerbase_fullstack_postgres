@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { SummaryForm } from "./components/SummaryForm";
 import { formatTimeToNow } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface BookIdPageProps {
   params: {
@@ -38,13 +39,13 @@ const page = async ({ params }: BookIdPageProps) => {
   const data = await books.json();
   console.log(data.response, "DATA");
 
-  const book = await prismadb.book.findUnique({
-    where: {
-      id: idInInt,
-      // user_id: userId,
-    },
-  });
-  if (book === null) {
+  // const book = await prismadb.book.findUnique({
+  //   where: {
+  //     id: idInInt,
+  //     // user_id: userId,
+  //   },
+  // });
+  if (data.response === null) {
     return <h1>No Info Found</h1>;
   }
   const summaries = await prismadb.summary.findMany({
@@ -58,7 +59,7 @@ const page = async ({ params }: BookIdPageProps) => {
       <div className="flex flex-col lg:flex-row w-full justify-evenly mb-10">
         <div className="w-full lg:w-1/3">
           {data.response.items.map((book: any, index: any) => (
-            <Card>
+            <Card key={index}>
               <CardHeader className="">
                 <CardTitle className="text-base">{book.name}</CardTitle>
                 <CardDescription>By {book.author}</CardDescription>
@@ -83,7 +84,14 @@ const page = async ({ params }: BookIdPageProps) => {
         <div className="w-full lg:w-2/3 lg:mx-[5vw]">
           <div>
             {" "}
-            {userId && <SummaryForm book_id={book.id.toString()} />}
+            {userId ? (
+              <SummaryForm book_id={idInInt.toString()} />
+            ) : (
+              <div className="flex items-center justify-center my-5">
+                <Button>Login to add your</Button>
+              </div>
+            )}
+            {/* {userId && <SummaryForm book_id={idInInt.toString()} />} */}
             {/* <SummaryForm book_id={book.id.toString()} /> */}
           </div>
           <div className="space-y-4">
