@@ -1,9 +1,9 @@
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { formatTimeToNow } from "@/lib/utils";
 import { FC } from "react";
@@ -26,15 +26,17 @@ const TabBookList: FC<TabBookListProps> = ({
 }) => {
   return (
     <>
-      <Card>
+      <Card className="w-full flex flex-col lg:flex-row ">
         <CardHeader className="">
           <CardTitle className="text-base">{name}</CardTitle>
           <CardDescription>
             By {author} {formatTimeToNow(createdAt)}
           </CardDescription>
+          <div className="md:w-[350px]">
+            <img src={src} alt="book" className="" />
+          </div>
         </CardHeader>
         <CardContent>
-          <img src={src} alt="book" />
           <p className="mt-5">{description}</p>
         </CardContent>
       </Card>

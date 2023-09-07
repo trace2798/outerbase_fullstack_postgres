@@ -12,12 +12,12 @@ datasource db {
 
 model Book {
   id          Int      @id @default(autoincrement())
-  user_id     String?
-  user_name   String?
+  user_id     String
+  user_name   String
   src         String
   name        String
   description String
-  author      String?
+  author      String
   createdAt   DateTime @default(now())
 
   summaries Summary[]
@@ -25,13 +25,13 @@ model Book {
 
 model Summary {
   id        Int      @id @default(autoincrement())
-  title     String?
+  title     String
   content   String
   createdAt DateTime @default(now())
 
   book_id   Int
   user_id   String
-  user_name String?
+  user_name String
   book      Book    @relation(fields: [book_id], references: [id], onDelete: Cascade)
 
   @@index([book_id])
