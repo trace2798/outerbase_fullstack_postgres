@@ -29,7 +29,7 @@ const formSchema = z.object({
   user_id: z.string().min(1, {
     message: "User id is required.",
   }),
-  book_id: z.string().min(1, {
+  book_id: z.number().min(1, {
     message: "Book id is required.",
   }),
   title: z.string().min(1, {
@@ -38,9 +38,26 @@ const formSchema = z.object({
   user_name: z.string().min(1, {
     message: "User name is required.",
   }),
+  id: z.number().min(1, {
+    message: "id is required.",
+  }),
 });
 
-export const SummaryForm = ({ book_id }: { book_id: string }) => {
+export const SummaryFormEdit = ({
+  content,
+  user_id,
+  book_id,
+  title,
+  user_name,
+  id,
+}: {
+  book_id: number;
+  content: string;
+  user_id: string;
+  title: string;
+  user_name: string;
+  id: number;
+}) => {
   const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
@@ -50,11 +67,12 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      content: "",
-      user_id: user?.id,
-      book_id: book_id,
-      title: "",
-      user_name: user?.firstName ?? "Anonymous",
+      content: content,
+      user_id: user_id ?? user?.id,
+      book_id: book_id as unknown as number,
+      title: title,
+      user_name: user_name ?? user?.firstName,
+      id: id,
     },
   });
 
@@ -63,22 +81,21 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       console.log(values);
-      await fetch(
-        "https://middle-indigo.cmd.outerbase.io/publishASummaryBasedOnBookId",
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: values.user_id,
-            content: values.content,
-            book_id: values.book_id,
-            title: values.title,
-            user_name: values.user_name,
-          }),
-        }
-      );
+      await fetch("https://middle-indigo.cmd.outerbase.io/updateSummaryById", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: values.user_id,
+          content: values.content,
+          book_id: values.book_id,
+          title: values.title,
+          user_name: values.user_name,
+          id: values.id,
+        }),
+      });
+
       toast({
         description: "Success.",
         duration: 3000,
@@ -157,7 +174,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
 
           <div className="w-full flex justify-center">
             <Button size="lg" disabled={isLoading}>
-              Publish Summary
+              Update Summary/Review
               <Wand2 className="w-4 h-4 ml-2" />
             </Button>
           </div>

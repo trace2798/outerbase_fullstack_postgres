@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     // const user = await currentUser();
-    const { src, name, description, userId, userName } = body;
+    const { src, name, description, userId, userName, author } = body;
 
     // if (!user || !user.id || !user.firstName) {
     //   return new NextResponse("Unauthorized", { status: 401 });
@@ -20,11 +20,12 @@ export async function POST(req: Request) {
 
     const book = await prismadb.book.create({
       data: {
-        userId: userId,
-        userName: userName,
+        user_id: userId,
+        user_name: userName,
         src,
         name,
         description,
+        author: author,
       },
     });
 

@@ -19,6 +19,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { formatTimeToNow } from "@/lib/utils";
 import axios from "axios";
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 
@@ -47,9 +48,20 @@ const SummaryCard: FC<SummaryCardProps> = ({
 }) => {
   const router = useRouter();
   const { toast } = useToast();
+  const id_to_delete = id;
   const onDelete = async () => {
     try {
       await axios.delete(`/api/summary/${id}`);
+      // console.log(id_to_delete);
+      // await fetch("https://middle-indigo.cmd.outerbase.io/deleteSummaryById", {
+      //   method: "DELETE",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     id: id_to_delete,
+      //   }),
+      // });
       toast({
         description: "Success.",
       });
@@ -86,7 +98,9 @@ const SummaryCard: FC<SummaryCardProps> = ({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[160px]">
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href={`/summary/edit/${id}`}>Edit</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={onDelete}>Delete</DropdownMenuItem>
                 </DropdownMenuContent>
