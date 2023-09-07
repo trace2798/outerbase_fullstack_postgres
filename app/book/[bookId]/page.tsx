@@ -1,6 +1,3 @@
-import { FC } from "react";
-import { auth, redirectToSignIn } from "@clerk/nextjs";
-import prismadb from "@/lib/prismadb";
 import {
   Card,
   CardContent,
@@ -8,9 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { SummaryForm } from "./components/SummaryForm";
+import prismadb from "@/lib/prismadb";
 import { formatTimeToNow } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { auth } from "@clerk/nextjs";
+import { SummaryForm } from "./components/SummaryForm";
 import LoginButton from "./components/login-button";
 
 interface BookIdPageProps {

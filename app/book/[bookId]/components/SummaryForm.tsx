@@ -92,7 +92,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
         >
           <div className="space-y-2 w-full col-span-2">
             <div>
-              <h3 className="text-lg font-medium">Add a summary</h3>
+              <h3 className="text-lg font-medium">Add a summary/review</h3>
               <p className="text-sm text-muted-foreground">
                 Add your summary/review to begin discussion
               </p>

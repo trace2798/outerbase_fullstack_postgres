@@ -1,14 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const LoginButton = ({}) => {
   const router = useRouter();
   return (
     <>
-      <Button onClick={() => router.push("/sign-in")}>
-        Login to Contribute
+      <Button>
+        <Link href="/sign-in">Login to Contribute</Link>
       </Button>
     </>
   );
