@@ -11,6 +11,7 @@ import {
 import { SummaryForm } from "./components/SummaryForm";
 import { formatTimeToNow } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import LoginButton from "./components/login-button";
 
 interface BookIdPageProps {
   params: {
@@ -88,7 +89,7 @@ const page = async ({ params }: BookIdPageProps) => {
               <SummaryForm book_id={idInInt.toString()} />
             ) : (
               <div className="flex items-center justify-center my-5">
-                <Button>Login to add your</Button>
+                <LoginButton />
               </div>
             )}
             {/* {userId && <SummaryForm book_id={idInInt.toString()} />} */}
