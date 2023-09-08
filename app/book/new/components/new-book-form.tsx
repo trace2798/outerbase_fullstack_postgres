@@ -68,7 +68,7 @@ export const NewBookForm = ({}) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       console.log(values);
-      await fetch(`${process.env.OUTERBASE_SECRET}/publishABook`, {
+      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/publishABook`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
