@@ -56,7 +56,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
       await axios.delete(`/api/summary/${id}`);
       console.log(id_to_delete);
       //this is the command to every all summaries by userId
-      // await fetch("https://middle-indigo.cmd.outerbase.io/deletedAllSummaryByUserId", {
+      // await fetch(`${process.env.OUTERBASE_SECRET}/deletedAllSummaryByUserId`, {
       //   method: "DELETE",
       //   headers: {
       //     "content-type": "application/json",

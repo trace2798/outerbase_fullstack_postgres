@@ -17,7 +17,7 @@ const TabSummaryList: FC<TabSummaryListProps> = async ({
   book_id,
 }) => {
   const books = await fetch(
-    `https://middle-indigo.cmd.outerbase.io/getBookById?id=${book_id}`,
+    `${process.env.OUTERBASE_SECRET}/getBookById?id=${book_id}`,
     {
       method: "GET",
       headers: {

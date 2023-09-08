@@ -64,7 +64,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
     try {
       console.log(values);
       await fetch(
-        "https://middle-indigo.cmd.outerbase.io/publishASummaryBasedOnBookId",
+        `${process.env.OUTERBASE_SECRET}/publishASummaryBasedOnBookId`,
         {
           method: "POST",
           headers: {

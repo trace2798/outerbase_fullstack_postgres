@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import prismadb from "@/lib/prismadb";
-import { formatTimeToNow } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
 import { SummaryForm } from "./components/SummaryForm";
 import LoginButton from "./components/login-button";
@@ -28,7 +27,7 @@ const page = async ({ params }: BookIdPageProps) => {
   const idInInt = Number(params.bookId);
 
   const books = await fetch(
-    `https://middle-indigo.cmd.outerbase.io/getBookById?id=${idInInt}`,
+    `${process.env.OUTERBASE_SECRET}/getBookById?id=${idInInt}`,
     {
       method: "GET",
       headers: {
@@ -48,11 +47,23 @@ const page = async ({ params }: BookIdPageProps) => {
   if (data.response === null) {
     return <h1>No Info Found</h1>;
   }
-  const summaries = await prismadb.summary.findMany({
-    where: {
-      book_id: idInInt,
-    },
-  });
+  // const summaries = await prismadb.summary.findMany({
+  //   where: {
+  //     book_id: idInInt,
+  //   },
+  // });
+  const summary = await fetch(
+    `${process.env.OUTERBASE_SECRET}/getSummaryByBookId?book_id=${idInInt}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  console.log(summary, "SUMMARY");
+  const summar = await summary.json();
+  console.log(summar.response, "Summaries");
 
   return (
     <>
@@ -95,7 +106,7 @@ const page = async ({ params }: BookIdPageProps) => {
             {/* <SummaryForm book_id={book.id.toString()} /> */}
           </div>
           <div className="space-y-4">
-            {summaries.map((summary) => (
+          {summar.response.items.map((summary: any) => (
               <SummaryCard
                 id={summary.id}
                 title={summary.title}
@@ -116,7 +127,7 @@ const page = async ({ params }: BookIdPageProps) => {
               //     <p className="mt-5">{summary.content}</p>
               //   </CardContent>
               // </Card>
-            ))}
+            ))} 
           </div>
         </div>
       </div>

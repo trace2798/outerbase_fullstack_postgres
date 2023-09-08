@@ -12,7 +12,7 @@ interface pageProps {}
 
 const page: FC<pageProps> = async ({}) => {
   const books = await fetch(
-    "https://middle-indigo.cmd.outerbase.io/getAllBooks",
+    `${process.env.OUTERBASE_SECRET}/getAllBooks`,
     {
       method: "GET",
       headers: {

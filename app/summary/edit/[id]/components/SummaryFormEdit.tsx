@@ -80,10 +80,10 @@ export const SummaryFormEdit = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // await fetch("https://middle-indigo.cmd.outerbase.io/updateSummaryByIdPut", {
+      // await fetch(`${process.env.OUTERBASE_SECRET}/updateSummaryByIdPut`, {
       //   method: "PUT",
       console.log(values);
-      await fetch("https://middle-indigo.cmd.outerbase.io/updateSummaryById", {
+      await fetch(`${process.env.OUTERBASE_SECRET}/updateSummaryById`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",
