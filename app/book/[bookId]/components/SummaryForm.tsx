@@ -64,7 +64,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
     try {
       console.log(values);
       await fetch(
-        `${process.env.OUTERBASE_SECRET}/publishASummaryBasedOnBookId`,
+        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/publishASummaryBasedOnBookId`,
         {
           method: "POST",
           headers: {
