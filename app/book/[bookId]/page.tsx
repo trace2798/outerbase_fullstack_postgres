@@ -10,6 +10,7 @@ import { formatTimeToNow } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
 import { SummaryForm } from "./components/SummaryForm";
 import LoginButton from "./components/login-button";
+import SummaryCard from "./components/summary-card";
 
 interface BookIdPageProps {
   params: {
@@ -95,17 +96,26 @@ const page = async ({ params }: BookIdPageProps) => {
           </div>
           <div className="space-y-4">
             {summaries.map((summary) => (
-              <Card key={summary.id} className="w-full">
-                <CardHeader>
-                  <CardTitle className="text-base">{summary.title}</CardTitle>
-                  <CardDescription>
-                    By {summary.user_name} {formatTimeToNow(summary.createdAt)}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="mt-5">{summary.content}</p>
-                </CardContent>
-              </Card>
+              <SummaryCard
+                id={summary.id}
+                title={summary.title}
+                content={summary.content}
+                user_name={summary.user_name}
+                createdAt={summary.createdAt}
+                user_id={summary.user_id}
+                key={summary.id}
+              />
+              // <Card key={summary.id} className="w-full">
+              //   <CardHeader>
+              //     <CardTitle className="text-base">{summary.title}</CardTitle>
+              //     <CardDescription>
+              //       By {summary.user_name} {formatTimeToNow(summary.createdAt)}
+              //     </CardDescription>
+              //   </CardHeader>
+              //   <CardContent>
+              //     <p className="mt-5">{summary.content}</p>
+              //   </CardContent>
+              // </Card>
             ))}
           </div>
         </div>

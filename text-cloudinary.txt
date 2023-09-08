@@ -1,0 +1,77 @@
+var privileges = ['cellValue', 'configuration'];
+
+var templateCell = document.createElement('template');
+templateCell.innerHTML = `<style>#container{height:calc(100%-16px);width:calc(100%-16px);padding:8px;position:relative;}</style><div id="container"></div>`;
+
+class OuterbasePluginConfig_$PLUGIN_ID {
+  constructor(object) {}
+}
+
+class OuterbasePluginCell_$PLUGIN_ID extends HTMLElement {
+  static get observedAttributes() {
+    return privileges;
+  }
+
+  config = new OuterbasePluginConfig_$PLUGIN_ID({});
+
+  constructor() {
+    super();
+    this.shadow = this.attachShadow({ mode: 'open' });
+    this.shadow.appendChild(templateCell.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.config = new OuterbasePluginConfig_$PLUGIN_ID(
+      JSON.parse(this.getAttribute('configuration'))
+    );
+    this.render();
+  }
+
+  render() {
+    this.shadow.querySelector('#container').innerHTML = `<div>` + this.getAttribute('cellValue') + `</div>`;
+    this.shadow.querySelector('#container').addEventListener('click', () => {
+      this.setAttribute('onEdit', true);
+      this.render();
+    });
+  }
+}
+
+var templateEditor = document.createElement('template');
+templateEditor.innerHTML = `<style>#container{max-height:120px;overflow-y:scroll;}</style><div id="container"></div>`;
+
+class OuterbasePluginEditor_$PLUGIN_ID extends HTMLElement {
+  static get observedAttributes() {
+    return privileges;
+  }
+
+  config = new OuterbasePluginConfig_$PLUGIN_ID({});
+
+  constructor() {
+    super();
+    this.shadow = this.attachShadow({ mode: 'open' });
+    this.shadow.appendChild(templateEditor.content.cloneNode(true));
+    this.config = new OuterbasePluginConfig_$PLUGIN_ID(
+      JSON.parse(this.getAttribute('configuration'))
+    );
+    this.render();
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    this.shadow.querySelector('#container').innerHTML = `<div><input type="text" id="password" value="` + this.getAttribute('cellValue') + `"><button>Save</button></div>`;
+    const options = this.shadow.querySelectorAll('#password');
+    options.forEach((option) => {
+      option.addEventListener('click', () => {
+        const optionValue = option.innerHTML;
+        this.setAttribute('cellValue', optionValue);
+        this.setAttribute('onStopEdit', true);
+      });
+    });
+  }
+}
+
+window.customElements.define('outerbase-plugin-cell', OuterbasePluginCell_$PLUGIN_ID);
+window.customElements.define('outerbase-plugin-editor', OuterbasePluginEditor_$PLUGIN_ID);

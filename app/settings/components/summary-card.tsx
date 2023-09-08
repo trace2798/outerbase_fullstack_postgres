@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
 import { formatTimeToNow } from "@/lib/utils";
+import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -49,17 +50,19 @@ const SummaryCard: FC<SummaryCardProps> = ({
   const router = useRouter();
   const { toast } = useToast();
   const id_to_delete = id;
+  const { user } = useUser();
   const onDelete = async () => {
     try {
       await axios.delete(`/api/summary/${id}`);
-      // console.log(id_to_delete);
-      // await fetch("https://middle-indigo.cmd.outerbase.io/deleteSummaryById", {
+      console.log(id_to_delete);
+      //this is the command to every all summaries by userId
+      // await fetch("https://middle-indigo.cmd.outerbase.io/deletedAllSummaryByUserId", {
       //   method: "DELETE",
       //   headers: {
       //     "content-type": "application/json",
       //   },
       //   body: JSON.stringify({
-      //     id: id_to_delete,
+      //     user_id: user?.id,
       //   }),
       // });
       toast({
