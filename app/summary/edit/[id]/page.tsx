@@ -29,7 +29,7 @@ const page = async ({ params }: pageProps) => {
 
   const summar = await summariesById.json();
   console.log(summar, "SUMMAR");
-  if (summar.response.items.length === 0) {
+  if (summar.response.items.length === 1) {
     return (
       <>
         <h1>
