@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="xl:my-32 my-20 md:mt-48 mx-[10vw] lg:mx-[10vw] xl:mx-[15vw] flex flex-col md:flex-row items-center justify-between">
+      <div className="xl:my-32 md:my-20 md:mx-[10vw] lg:mx-[10vw] xl:mx-[15vw] flex flex-col md:flex-row items-center justify-between">
         <div className="md:w-1/2">
           <h1 className="text-5xl font-satoshiBlack">
             Summize: Discover, Share, and Review
@@ -23,7 +23,7 @@ export default function Home() {
           </h1>
           <div className="md:hidden">
             <Image
-              src="/images/meet.png"
+              src="/images/meet-nobackground.png"
               alt="hero-image"
               width={500}
               height={500}
