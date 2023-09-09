@@ -7,6 +7,7 @@ interface TabSummaryListProps {
   createdAt: Date;
   id: number;
   book_id: number;
+  rating: number;
 }
 
 const TabSummaryList: FC<TabSummaryListProps> = async ({
@@ -15,6 +16,7 @@ const TabSummaryList: FC<TabSummaryListProps> = async ({
   createdAt,
   id,
   book_id,
+  rating,
 }) => {
   const books = await fetch(
     `${process.env.OUTERBASE_SECRET}/getBookById?id=${book_id}`,
@@ -35,6 +37,7 @@ const TabSummaryList: FC<TabSummaryListProps> = async ({
         title={title}
         content={content}
         id={id}
+        rating={rating}
       />
     </>
   );

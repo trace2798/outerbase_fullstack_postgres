@@ -18,11 +18,11 @@ const page: FC<pageProps> = async ({}) => {
   //     user_id: userId,
   //   },
   // });
-  const summaries = await prismadb.summary.findMany({
-    where: {
-      user_id: userId,
-    },
-  });
+  // const summaries = await prismadb.summary.findMany({
+  //   where: {
+  //     user_id: userId,
+  //   },
+  // });
   // console.log(summaries, "SUMMARIES");
   const bookByUserId = await fetch(
     `https://middle-indigo.cmd.outerbase.io/getBooksByUserId?user_id=${userId}`,
@@ -35,6 +35,19 @@ const page: FC<pageProps> = async ({}) => {
   );
   console.log(bookByUserId, "OUTERBASE COMMAND");
   const books = await bookByUserId.json();
+
+  const summariesByUserId = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/getSummariesByUserId?user_id=${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  console.log(summariesByUserId, "OUTERBASE COMMAND Summary");
+  console.log(books, "BOOKS");
+  const summaries = await summariesByUserId.json();
   return (
     <>
       <div className="pt-24 flex mx-[10vw] flex-col w-fit justify-center items-center">
@@ -62,7 +75,7 @@ const page: FC<pageProps> = async ({}) => {
             ))}
           </TabsContent>
           <TabsContent value="summaries" className="space-y-4">
-            {summaries.map((summary, index) => (
+            {summaries.response.items.map((summary: any, index: any) => (
               <div key={index} className="">
                 <TabSummaryList
                   content={summary.content}
@@ -70,6 +83,7 @@ const page: FC<pageProps> = async ({}) => {
                   id={summary.id}
                   createdAt={summary.createdAt}
                   book_id={summary.book_id}
+                  rating={summary.rating}
                 />
               </div>
             ))}

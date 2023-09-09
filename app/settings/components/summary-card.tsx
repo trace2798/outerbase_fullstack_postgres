@@ -30,6 +30,7 @@ interface SummaryCardProps {
   createdAt: Date;
   id: number;
   data: Data;
+  rating: number;
 }
 interface Data {
   response: {
@@ -46,11 +47,13 @@ const SummaryCard: FC<SummaryCardProps> = ({
   createdAt,
   id,
   data,
+  rating,
 }) => {
   const router = useRouter();
   const { toast } = useToast();
   const id_to_delete = id;
   const { user } = useUser();
+  const dateObject = new Date(createdAt);
   const onDelete = async () => {
     try {
       // await axios.delete(`/api/summary/${id}`);
@@ -81,6 +84,13 @@ const SummaryCard: FC<SummaryCardProps> = ({
       });
     }
   };
+  const generateStars = (rating: number) => {
+    let stars = "";
+    for (let i = 0; i < rating; i++) {
+      stars += "⭐";
+    }
+    return stars;
+  };
   return (
     <>
       <Card className="">
@@ -88,7 +98,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
           <div className="flex justify-between">
             <div>
               <CardTitle className="text-base">{title}</CardTitle>
-              <CardDescription>{formatTimeToNow(createdAt)}</CardDescription>
+              <CardDescription>{formatTimeToNow(dateObject)}</CardDescription>
               {data.response.items.map((book: any, index: any) => (
                 <Link
                   href={`/book/${book.id}`}
@@ -98,6 +108,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
                   On: {book.name}
                 </Link>
               ))}
+              {generateStars(Number(rating))}
             </div>
             <div>
               <DropdownMenu>
