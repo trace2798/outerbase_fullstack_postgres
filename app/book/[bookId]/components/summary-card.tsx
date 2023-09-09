@@ -38,10 +38,17 @@ const SummaryCard: FC<SummaryCardProps> = ({
   createdAt,
   content,
   user_id,
-  rating
+  rating,
 }) => {
   const { user } = useUser();
   const dateObject = new Date(createdAt);
+  const generateStars = (rating: number) => {
+    let stars = "";
+    for (let i = 0; i < rating; i++) {
+      stars += "⭐";
+    }
+    return stars;
+  };
   return (
     <>
       <Card key={id} className="w-full">
@@ -49,7 +56,10 @@ const SummaryCard: FC<SummaryCardProps> = ({
           <div className="flex justify-between">
             <div>
               <CardTitle className="text-base">{title}</CardTitle>
-              <CardDescription>By {user_name} {formatTimeToNow(dateObject)} {rating}</CardDescription>
+              <CardDescription>
+                By {user_name} {formatTimeToNow(dateObject)} <br />{" "}
+                {generateStars(Number(rating))}
+              </CardDescription>
               {/* {data.response.items.map((book: any, index: any) => (
                 <div key={index}>On: {book.name}</div>
               ))} */}
@@ -83,7 +93,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
           </div>
         </CardHeader>
         <CardContent>
-          <p className="mt-5">{content}</p>
+          <p className="mt-3">{content}</p>
         </CardContent>
       </Card>
     </>
