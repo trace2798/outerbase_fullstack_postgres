@@ -40,20 +40,10 @@ const page = async ({ params }: BookIdPageProps) => {
   const data = await books.json();
   console.log(data.response, "DATA");
 
-  // const book = await prismadb.book.findUnique({
-  //   where: {
-  //     id: idInInt,
-  //     // user_id: userId,
-  //   },
-  // });
   if (data.response === null) {
     return <h1>No Info Found</h1>;
   }
-  // const summaries = await prismadb.summary.findMany({
-  //   where: {
-  //     book_id: idInInt,
-  //   },
-  // });
+
   const summary = await fetch(
     `${process.env.OUTERBASE_SECRET}/getSummaryByBookId?book_id=${idInInt}`,
     {
@@ -107,16 +97,6 @@ const page = async ({ params }: BookIdPageProps) => {
               </CardContent>
             </Card>
           ))}
-          {/* <Card>
-            <CardHeader className="">
-              <CardTitle className="text-base">{book.name}</CardTitle>
-              <CardDescription>By {book.author}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <img src={book.src} alt="book" />
-              <p className="mt-5">{book.description}</p>
-            </CardContent>
-          </Card> */}
         </div>
         <div className="w-full lg:w-2/3 lg:mx-[5vw]">
           <div>
@@ -128,11 +108,9 @@ const page = async ({ params }: BookIdPageProps) => {
                 <LoginButton />
               </div>
             )}
-            {/* {userId && <SummaryForm book_id={idInInt.toString()} />} */}
-            {/* <SummaryForm book_id={book.id.toString()} /> */}
-          </div>
+         </div>
           <div className="space-y-4">
-            {summar.response.items.map((summary: any) => (
+            {summar.response.items.slice().reverse().map((summary: any) => (
               <SummaryCard
                 id={summary.id}
                 title={summary.title}
@@ -143,17 +121,6 @@ const page = async ({ params }: BookIdPageProps) => {
                 key={summary.id}
                 rating={summary.rating}
               />
-              // <Card key={summary.id} className="w-full">
-              //   <CardHeader>
-              //     <CardTitle className="text-base">{summary.title}</CardTitle>
-              //     <CardDescription>
-              //       By {summary.user_name} {formatTimeToNow(summary.createdAt)}
-              //     </CardDescription>
-              //   </CardHeader>
-              //   <CardContent>
-              //     <p className="mt-5">{summary.content}</p>
-              //   </CardContent>
-              // </Card>
             ))}
           </div>
         </div>
