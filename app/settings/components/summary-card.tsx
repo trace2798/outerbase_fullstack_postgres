@@ -56,16 +56,20 @@ const SummaryCard: FC<SummaryCardProps> = ({
       // await axios.delete(`/api/summary/${id}`);
       // console.log(id_to_delete);
       //this is the command to every all summaries by userId
-      console.log(id_to_delete, "inside delete")
-      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/deletedAllSummaryById?summary_id=${id_to_delete}`, {
-        method: "DELETE",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id_to_delete,
-        }),
-      });
+      console.log(id_to_delete, "inside delete");
+      await fetch(
+        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/deleteSummaryById`,
+       
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id.toString(),
+          }),
+        }
+      );
       toast({
         description: "Success.",
       });
@@ -87,7 +91,13 @@ const SummaryCard: FC<SummaryCardProps> = ({
               <CardTitle className="text-base">{title}</CardTitle>
               <CardDescription>{formatTimeToNow(createdAt)}</CardDescription>
               {data.response.items.map((book: any, index: any) => (
-                <Link href={`/book/${book.id}`} key={index} className="hover:text-indigo-400">On: {book.name}</Link>
+                <Link
+                  href={`/book/${book.id}`}
+                  key={index}
+                  className="hover:text-indigo-400"
+                >
+                  On: {book.name}
+                </Link>
               ))}
             </div>
             <div>
@@ -102,9 +112,10 @@ const SummaryCard: FC<SummaryCardProps> = ({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-[160px]">
-                  <DropdownMenuItem>
-                    <Link href={`/summary/edit/${id}`}>Edit</Link>
-                  </DropdownMenuItem>
+                  <Link href={`/summary/edit/${id}`}>
+                    {" "}
+                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                  </Link>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={onDelete}>Delete</DropdownMenuItem>
                 </DropdownMenuContent>

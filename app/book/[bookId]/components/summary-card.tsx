@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 interface SummaryCardProps {
   id: number;
@@ -42,6 +44,39 @@ const SummaryCard: FC<SummaryCardProps> = ({
 }) => {
   const { user } = useUser();
   const dateObject = new Date(createdAt);
+  const router = useRouter();
+  const { toast } = useToast();
+  const onDelete = async () => {
+    try {
+      // await axios.delete(`/api/summary/${id}`);
+      // console.log(id_to_delete);
+      //this is the command to every all summaries by userId
+      // console.log(id_to_delete, "inside delete");
+      await fetch(
+        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/deleteSummaryById`,
+
+        {
+          method: "DELETE",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            id: id.toString(),
+          }),
+        }
+      );
+      toast({
+        description: "Success.",
+      });
+      router.refresh();
+      // router.push("/settings");
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "Something went wrong.",
+      });
+    }
+  };
   const generateStars = (rating: number) => {
     let stars = "";
     for (let i = 0; i < rating; i++) {
@@ -78,11 +113,16 @@ const SummaryCard: FC<SummaryCardProps> = ({
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-[160px]">
-                      <DropdownMenuItem>
-                        <Link href={`/summary/edit/${id}`}>Edit</Link>
-                      </DropdownMenuItem>
+                      <Link
+                        href={`/summary/edit/${id}`}
+                        className="hover:cursor-pointer"
+                      >
+                        <DropdownMenuItem className="hover:cursor-pointer">
+                          Edit
+                        </DropdownMenuItem>
+                      </Link>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => console.log("Delete")}>
+                      <DropdownMenuItem onClick={onDelete}>
                         Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
