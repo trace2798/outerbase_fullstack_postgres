@@ -69,7 +69,7 @@ export const SummaryFormEdit = ({
     defaultValues: {
       content: content,
       user_id: user_id ?? user?.id,
-      book_id: book_id as unknown as number,
+      book_id: book_id,
       title: title,
       user_name: user_name ?? user?.firstName,
       id: id,
@@ -80,21 +80,21 @@ export const SummaryFormEdit = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      // await fetch(`${process.env.OUTERBASE_SECRET}/updateSummaryByIdPut`, {
-      //   method: "PUT",
-      console.log(values);
-      await fetch(`${process.env.OUTERBASE_SECRET}/updateSummaryById`, {
-        method: "PATCH",
+      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryByIdPut`, {
+        method: "PUT",
+      // console.log(values);
+      // await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryById`, {
+      //   method: "PATCH",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
           user_id: values.user_id,
           content: values.content,
-          book_id: values.book_id,
+          book_id: values.book_id.toString(),
           title: values.title,
           user_name: values.user_name,
-          id: values.id,
+          id: values.id.toString(),
         }),
       });
 

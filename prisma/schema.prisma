@@ -34,7 +34,6 @@ model Summary {
   user_name  String
   book       Book   @relation(fields: [book_id], references: [id], onDelete: Cascade)
   rating     Int?
-  summary_id String? @unique @default(uuid())
 
   @@index([book_id])
 }

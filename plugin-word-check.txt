@@ -234,3 +234,30 @@ window.customElements.define(
 );
 
 //working plugin to check specific words
+
+name: curl -X PUT "https://middle-indigo.cmd.outerbase.io/updateSummaryByIdPut" \
+-H "Content-Type: application/json" \
+-d '{"content":"Shed some light on unknown past which people do not talk about. Fill with historical event","id":"16","book_id":"5","title":"a read for lifetime and","user_id":"user_2V158zah4WYh2uxmOQkBWBMdIXT","user_name":"Shreyas"}'
+
+fetch("https://middle-indigo.cmd.outerbase.io/updateSummaryByIdPut", {
+  'method': 'PUT',
+  'headers': {
+    'content-type': 'application/json'
+   },
+  'body': '{"content":"Shed some light on unknown past which people do not talk about. Fill with historical event","id":"16","book_id":"5","title":"a read for lifetime and","user_id":"user_2V158zah4WYh2uxmOQkBWBMdIXT","user_name":"Shreyas"}'
+})
+
+fetch("https://middle-indigo.cmd.outerbase.io/updateSummaryByIdPut", {
+  'method': 'PUT',
+  'headers': {
+    'content-type': 'application/json'
+   },
+  'body': '{"title":"a read for lifetime and","user_id":"user_2V158zah4WYh2uxmOQkBWBMdIXT","content":"Shed some light on unknown past which people do not talk about. Fill with historical event","id":"16","book_id":"5","user_name":"Shreyas"}'
+})
+UPDATE "public"."Summary"
+SET content = '{{request.body.content}}',
+    user_id = '{{request.body.user_id}}',
+    book_id = '{{request.body.book_id}}',
+    title = '{{request.body.title}}',
+    user_name = '{{request.body.user_name}}'
+WHERE id = '{{request.body.id}}';

@@ -5,7 +5,7 @@ import { Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
+import { v4 as uuidv4 } from "uuid";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -45,7 +45,7 @@ const formSchema = z.object({
   user_name: z.string().min(1, {
     message: "User name is required.",
   }),
-  rating: z.number(),
+  rating: z.string(),
 });
 
 export const SummaryForm = ({ book_id }: { book_id: string }) => {
@@ -63,7 +63,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
       book_id: book_id,
       title: "",
       user_name: user?.firstName ?? "Anonymous",
-      rating: 4,
+      rating: "4",
     },
   });
 

@@ -53,18 +53,19 @@ const SummaryCard: FC<SummaryCardProps> = ({
   const { user } = useUser();
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/summary/${id}`);
-      console.log(id_to_delete);
+      // await axios.delete(`/api/summary/${id}`);
+      // console.log(id_to_delete);
       //this is the command to every all summaries by userId
-      // await fetch(`${process.env.OUTERBASE_SECRET}/deletedAllSummaryByUserId`, {
-      //   method: "DELETE",
-      //   headers: {
-      //     "content-type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     user_id: user?.id,
-      //   }),
-      // });
+      console.log(id_to_delete, "inside delete")
+      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/deletedAllSummaryById?summary_id=${id_to_delete}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          id: id_to_delete,
+        }),
+      });
       toast({
         description: "Success.",
       });
