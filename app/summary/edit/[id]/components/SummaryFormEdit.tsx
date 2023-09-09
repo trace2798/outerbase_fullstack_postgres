@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Wand2 } from "lucide-react";
+import { ChevronLeft, Wand2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -16,11 +16,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
-import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   content: z.string().min(1, {
@@ -80,23 +80,26 @@ export const SummaryFormEdit = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryByIdPut`, {
-        method: "PUT",
-      // console.log(values);
-      // await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryById`, {
-      //   method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: values.user_id,
-          content: values.content,
-          book_id: values.book_id.toString(),
-          title: values.title,
-          user_name: values.user_name,
-          id: values.id.toString(),
-        }),
-      });
+      await fetch(
+        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryByIdPut`,
+        {
+          method: "PUT",
+          // console.log(values);
+          // await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryById`, {
+          //   method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: values.user_id,
+            content: values.content,
+            book_id: values.book_id.toString(),
+            title: values.title,
+            user_name: values.user_name,
+            id: values.id.toString(),
+          }),
+        }
+      );
 
       toast({
         description: "Success.",
@@ -115,73 +118,83 @@ export const SummaryFormEdit = ({
   };
 
   return (
-    <div className="h-full p-4 space-y-2 w-full">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 pb-10"
-        >
-          <div className="space-y-2 w-full col-span-2">
-            <div>
-              <h3 className="text-lg font-medium">Add a summary/review</h3>
-              <p className="text-sm text-muted-foreground">
-                Add your summary/review to begin discussion
-              </p>
-            </div>
-            <Separator className="bg-primary/10" />
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            <FormField
-              name="title"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem className="col-span-2 md:col-span-1">
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={isLoading}
-                      placeholder="A read of a lifetime"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Title for your summary/review
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="content"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem className="col-span-2 md:col-span-1">
-                  <FormLabel>Summary/Review</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      disabled={isLoading}
-                      placeholder="The Wonderful Wizard of Oz is about"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>Summary/Review of the book.</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="space-y-2 w-full">
-            <Separator className="bg-primary/10" />
-          </div>
+    <>
+      <Button onClick={() => router.push("/settings")} variant="ghost" className="mb-10">
+        <ChevronLeft className="w-4 h-4" /> Back to settings
+      </Button>
 
-          <div className="w-full flex justify-center">
-            <Button size="lg" disabled={isLoading}>
-              Update Summary/Review
-              <Wand2 className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        </form>
-      </Form>
-    </div>
+      <div className="h-full p-4 space-y-2 w-full">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 pb-10"
+          >
+            <div className="space-y-2 w-full col-span-2">
+              <div>
+                <h3 className="text-lg font-medium">
+                  Edit your summary/review
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Add your summary/review to begin discussion
+                </p>
+              </div>
+              <Separator className="bg-primary/10" />
+            </div>
+            <div className="grid grid-cols-1 gap-4">
+              <FormField
+                name="title"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="col-span-2 md:col-span-1">
+                    <FormLabel>Title</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={isLoading}
+                        placeholder="A read of a lifetime"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Title for your summary/review
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="content"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem className="col-span-2 md:col-span-1">
+                    <FormLabel>Summary/Review</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        disabled={isLoading}
+                        placeholder="The Wonderful Wizard of Oz is about"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Summary/Review of the book.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <Separator className="bg-primary/10" />
+            </div>
+
+            <div className="w-full flex justify-center">
+              <Button size="lg" disabled={isLoading}>
+                Update Summary/Review
+                <Wand2 className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
+    </>
   );
 };

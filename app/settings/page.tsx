@@ -27,7 +27,7 @@ const page: FC<pageProps> = async ({}) => {
     <>
       <div className="pt-24 flex mx-[10vw] flex-col w-fit justify-center items-center">
         <h1 className="mb-10 text-2xl">
-          Here you can view all the books in your collection and all the
+          Here you can view all the books you have added and all the
           summaries/reviews you have posted
         </h1>
         <Tabs defaultValue="account" className="w-full mx-[10vw] mb-10">

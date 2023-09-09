@@ -24,7 +24,7 @@ export const Sidebar = ({}: SidebarProps) => {
     {
       icon: Plus,
       href: "/book/new",
-      label: "Add To Collection",
+      label: "Add",
     },
     {
       icon: Settings,

@@ -26,14 +26,18 @@ const page = async ({ params }: pageProps) => {
   console.log(summaries);
   return (
     <>
-      <SummaryFormEdit
-        id={idInInt}
-        title={summaries.title}
-        content={summaries?.content}
-        user_id={summaries.user_id}
-        user_name={summaries.user_name}
-        book_id={summaries.book_id}
-      />{" "}
+      <div className="mx-[10vw] flex justify-center h-screen items-center">
+        <div className="w-full">
+          <SummaryFormEdit
+            id={idInInt}
+            title={summaries.title}
+            content={summaries?.content}
+            user_id={summaries.user_id}
+            user_name={summaries.user_name}
+            book_id={summaries.book_id}
+          />{" "}
+        </div>
+      </div>
     </>
   );
 };
