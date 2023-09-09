@@ -1,7 +1,7 @@
-import { FC } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import prismadb from "@/lib/prismadb";
 import { auth, redirectToSignIn } from "@clerk/nextjs";
+import { FC } from "react";
 import TabBookList from "./components/tab-books-list";
 import TabSummaryList from "./components/tab-summary-list";
 
@@ -12,17 +12,29 @@ const page: FC<pageProps> = async ({}) => {
   if (!userId) {
     return redirectToSignIn();
   }
-  const books = await prismadb.book.findMany({
-    where: {
-      user_id: userId,
-    },
-  });
+  // console.log(userId);
+  // const books = await prismadb.book.findMany({
+  //   where: {
+  //     user_id: userId,
+  //   },
+  // });
   const summaries = await prismadb.summary.findMany({
     where: {
       user_id: userId,
     },
   });
-  console.log(summaries, "SUMMARIES");
+  // console.log(summaries, "SUMMARIES");
+  const bookByUserId = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/getBooksByUserId?user_id=${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  console.log(bookByUserId, "OUTERBASE COMMAND");
+  const books = await bookByUserId.json();
   return (
     <>
       <div className="pt-24 flex mx-[10vw] flex-col w-fit justify-center items-center">
@@ -36,7 +48,7 @@ const page: FC<pageProps> = async ({}) => {
             <TabsTrigger value="summaries">Your Summaries/Reviews</TabsTrigger>
           </TabsList>
           <TabsContent value="books" className="space-y-4">
-            {books.map((book, index) => (
+            {books.response.items.map((book: any, index: any) => (
               <div key={index} className="">
                 <TabBookList
                   src={book.src}

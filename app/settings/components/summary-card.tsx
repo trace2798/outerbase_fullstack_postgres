@@ -59,7 +59,6 @@ const SummaryCard: FC<SummaryCardProps> = ({
       console.log(id_to_delete, "inside delete");
       await fetch(
         `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/deleteSummaryById`,
-       
         {
           method: "DELETE",
           headers: {

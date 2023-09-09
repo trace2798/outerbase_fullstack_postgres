@@ -24,13 +24,16 @@ const TabBookList: FC<TabBookListProps> = ({
   author,
   createdAt,
 }) => {
+  const dateObject = new Date(createdAt);
   return (
     <>
       <Card className="w-full flex flex-col lg:flex-row ">
         <CardHeader className="">
           <CardTitle className="text-base">{name}</CardTitle>
           <CardDescription>
-            By {author} {formatTimeToNow(createdAt)}
+            By {author} &nbsp; 
+            {formatTimeToNow(dateObject)} 
+            {/* {formatTimeToNow(createdAt)} */}
           </CardDescription>
           <div className="md:w-[350px]">
             <img src={src} alt="book" className="" />
