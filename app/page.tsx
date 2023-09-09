@@ -5,10 +5,10 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="xl:my-32 md:my-20 md:mx-[10vw] lg:mx-[10vw] xl:mx-[15vw] flex flex-col md:flex-row items-center justify-between">
+      <div className="xl:my-32 md:my-20 md:mx-[5vw] lg:mx-[10vw] xl:mx-[15vw] flex flex-col md:flex-row items-center justify-between">
         <div className="md:w-1/2">
           <h1 className="text-5xl font-satoshiBlack">
-            Summize: Discover, Share, and Review
+            Summize: Discover, Share, and Review Books you love
             <br />
             <p className="text-3xl mt-5">
               Made Possible by{" "}
