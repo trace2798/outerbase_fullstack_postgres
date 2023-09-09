@@ -87,7 +87,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
               <CardTitle className="text-base">{title}</CardTitle>
               <CardDescription>{formatTimeToNow(createdAt)}</CardDescription>
               {data.response.items.map((book: any, index: any) => (
-                <div key={index}>On: {book.name}</div>
+                <Link href={`/book/${book.id}`} key={index} className="hover:text-indigo-400">On: {book.name}</Link>
               ))}
             </div>
             <div>

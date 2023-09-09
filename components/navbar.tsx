@@ -22,7 +22,7 @@ export const Navbar: FC<navbarProps> = ({}) => {
                 font.className
               )}
             >
-              SumRev
+              Summize
             </h1>
           </Link>
         </div>

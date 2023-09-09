@@ -24,7 +24,7 @@ export const Sidebar = ({}: SidebarProps) => {
     {
       icon: Plus,
       href: "/book/new",
-      label: "Publish",
+      label: "Add To Collection",
     },
     {
       icon: Settings,
@@ -46,7 +46,7 @@ export const Sidebar = ({}: SidebarProps) => {
                 pathname === route.href && "bg-primary/10 text-primary"
               )}
             >
-              <div className="flex flex-col gap-y-2 items-center flex-1">
+              <div className="flex flex-col gap-y-2 items-center text-center flex-1">
                 <route.icon className="h-5 w-5" />
                 {route.label}
               </div>
