@@ -99,7 +99,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
             <div>
               <CardTitle className="text-base">{title}</CardTitle>
               <CardDescription>
-                {formatTimeToNow(dateObject)} <br/>
+                {formatTimeToNow(dateObject)} <br />
                 {data.response.items.map((book: any, index: any) => (
                   <Link
                     href={`/book/${book.id}`}
@@ -110,7 +110,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
                   </Link>
                 ))}
               </CardDescription>
-              {generateStars(Number(rating))}
+              <h1 className="mt-2"> {generateStars(Number(rating))}</h1>
             </div>
             <div>
               <DropdownMenu>

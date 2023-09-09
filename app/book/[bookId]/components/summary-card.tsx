@@ -93,7 +93,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
               <CardTitle className="text-base capitalize">{title}</CardTitle>
               <CardDescription>
                 By {user_name} {formatTimeToNow(dateObject)} <br />{" "}
-                {generateStars(Number(rating))}
+                <h1 className="my-2"> {generateStars(Number(rating))}</h1>
               </CardDescription>
               {/* {data.response.items.map((book: any, index: any) => (
                 <div key={index}>On: {book.name}</div>

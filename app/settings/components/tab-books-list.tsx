@@ -17,14 +17,35 @@ interface TabBookListProps {
   id: number;
 }
 
-const TabBookList: FC<TabBookListProps> = ({
+const TabBookList: FC<TabBookListProps> = async ({
   name,
   src,
   description,
   author,
   createdAt,
+  id,
 }) => {
   const dateObject = new Date(createdAt);
+  const avgRating = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/averageRatingofSummariesByBookId?book_id=${id}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+
+  const avg_rating = await avgRating.json();
+  console.log(avg_rating, "AVG_RATING");
+
+  const generateStars = (rating: number) => {
+    let stars = "";
+    for (let i = 0; i < rating; i++) {
+      stars += "⭐";
+    }
+    return stars;
+  };
   return (
     <>
       <Card className="w-full flex flex-col lg:flex-row ">
@@ -34,6 +55,8 @@ const TabBookList: FC<TabBookListProps> = ({
             By {author} &nbsp; 
             {formatTimeToNow(dateObject)} 
             {/* {formatTimeToNow(createdAt)} */}
+            <br/>
+            <h1 className="my-2">{generateStars(Math.round(avg_rating.response.items[0].avg))} ({Math.round(avg_rating.response.items[0].avg)}/5)</h1>
           </CardDescription>
           <div className="md:w-[350px]">
             <img src={src} alt="book" className="" />
