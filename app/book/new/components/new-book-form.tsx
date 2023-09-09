@@ -152,7 +152,7 @@ export const NewBookForm = ({}) => {
               control={form.control}
               render={({ field }) => (
                 <FormItem className="col-span-2 md:col-span-1">
-                  <FormLabel>Author's name</FormLabel>
+                  <FormLabel>Author&apos;s name</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isLoading}
