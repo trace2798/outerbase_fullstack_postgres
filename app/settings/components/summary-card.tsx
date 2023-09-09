@@ -98,16 +98,18 @@ const SummaryCard: FC<SummaryCardProps> = ({
           <div className="flex justify-between">
             <div>
               <CardTitle className="text-base">{title}</CardTitle>
-              <CardDescription>{formatTimeToNow(dateObject)}</CardDescription>
-              {data.response.items.map((book: any, index: any) => (
-                <Link
-                  href={`/book/${book.id}`}
-                  key={index}
-                  className="hover:text-indigo-400"
-                >
-                  On: {book.name}
-                </Link>
-              ))}
+              <CardDescription>
+                {formatTimeToNow(dateObject)} <br/>
+                {data.response.items.map((book: any, index: any) => (
+                  <Link
+                    href={`/book/${book.id}`}
+                    key={index}
+                    className="hover:text-indigo-400"
+                  >
+                    On: {book.name}
+                  </Link>
+                ))}
+              </CardDescription>
               {generateStars(Number(rating))}
             </div>
             <div>
