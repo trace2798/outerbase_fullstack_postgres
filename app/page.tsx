@@ -8,7 +8,7 @@ export default function Home() {
       <div className="xl:my-32 md:my-20 md:mx-[5vw] lg:mx-[10vw] xl:mx-[15vw] flex flex-col md:flex-row items-center justify-between">
         <div className="md:w-1/2">
           <h1 className="text-5xl font-satoshiBlack">
-            Summize: Discover, Share, and Review Books you love
+            Summize: Discover, and Review Books you love
             <br />
             <p className="text-3xl mt-5">
               Made Possible by{" "}
