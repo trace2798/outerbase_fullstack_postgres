@@ -32,7 +32,8 @@ model Summary {
   book_id   Int
   user_id   String
   user_name String
-  book      Book    @relation(fields: [book_id], references: [id], onDelete: Cascade)
+  book      Book   @relation(fields: [book_id], references: [id], onDelete: Cascade)
+  rating    String?
 
   @@index([book_id])
 }

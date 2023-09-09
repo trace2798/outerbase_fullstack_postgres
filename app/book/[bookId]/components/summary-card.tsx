@@ -28,6 +28,7 @@ interface SummaryCardProps {
   createdAt: Date;
   content: string;
   user_id: string;
+  rating: string;
 }
 
 const SummaryCard: FC<SummaryCardProps> = ({
@@ -36,7 +37,8 @@ const SummaryCard: FC<SummaryCardProps> = ({
   title,
   createdAt,
   content,
-  user_id
+  user_id,
+  rating
 }) => {
   const { user } = useUser();
   const dateObject = new Date(createdAt);
@@ -47,7 +49,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
           <div className="flex justify-between">
             <div>
               <CardTitle className="text-base">{title}</CardTitle>
-              <CardDescription>By {user_name} {formatTimeToNow(dateObject)}</CardDescription>
+              <CardDescription>By {user_name} {formatTimeToNow(dateObject)} {rating}</CardDescription>
               {/* {data.response.items.map((book: any, index: any) => (
                 <div key={index}>On: {book.name}</div>
               ))} */}

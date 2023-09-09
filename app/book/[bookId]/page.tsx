@@ -115,6 +115,7 @@ const page = async ({ params }: BookIdPageProps) => {
                 createdAt={summary.createdAt}
                 user_id={summary.user_id}
                 key={summary.id}
+                rating={summary.rating}
               />
               // <Card key={summary.id} className="w-full">
               //   <CardHeader>

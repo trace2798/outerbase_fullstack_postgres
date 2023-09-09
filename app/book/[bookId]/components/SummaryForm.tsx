@@ -16,6 +16,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
@@ -38,6 +45,7 @@ const formSchema = z.object({
   user_name: z.string().min(1, {
     message: "User name is required.",
   }),
+  rating: z.string(),
 });
 
 export const SummaryForm = ({ book_id }: { book_id: string }) => {
@@ -55,6 +63,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
       book_id: book_id,
       title: "",
       user_name: user?.firstName ?? "Anonymous",
+      rating: "4",
     },
   });
 
@@ -76,6 +85,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
             book_id: values.book_id,
             title: values.title,
             user_name: values.user_name,
+            rating: values.rating,
           }),
         }
       );
@@ -128,6 +138,33 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
                   <FormDescription>
                     Title for your summary/review
                   </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="rating"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Rating (1-5)</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="How many point will you give this book?" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="1">1</SelectItem>
+                      <SelectItem value="2">2</SelectItem>
+                      <SelectItem value="3">3</SelectItem>
+                      <SelectItem value="4">4</SelectItem>
+                      <SelectItem value="5">5</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
