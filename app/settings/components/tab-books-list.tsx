@@ -37,7 +37,7 @@ const TabBookList: FC<TabBookListProps> = ({
           </div>
         </CardHeader>
         <CardContent>
-          <p className="mt-5">{description}</p>
+          <p className="mt-3">{description}</p>
         </CardContent>
       </Card>
     </>

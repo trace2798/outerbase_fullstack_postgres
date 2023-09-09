@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -10,6 +11,7 @@ import { auth } from "@clerk/nextjs";
 import { SummaryForm } from "./components/SummaryForm";
 import LoginButton from "./components/login-button";
 import SummaryCard from "./components/summary-card";
+import { Separator } from "@/components/ui/separator";
 
 interface BookIdPageProps {
   params: {
@@ -65,6 +67,27 @@ const page = async ({ params }: BookIdPageProps) => {
   const summar = await summary.json();
   console.log(summar.response, "Summaries");
 
+  const avgRating = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/averageRatingofSummariesByBookId?book_id=${idInInt}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+
+  const avg_rating = await avgRating.json();
+  console.log(avg_rating, "AVG_RATING");
+
+  const generateStars = (rating: number) => {
+    let stars = "";
+    for (let i = 0; i < rating; i++) {
+      stars += "⭐";
+    }
+    return stars;
+  };
+
   return (
     <>
       <div className="flex flex-col lg:flex-row w-full justify-evenly mb-10">
@@ -73,11 +96,14 @@ const page = async ({ params }: BookIdPageProps) => {
             <Card key={index}>
               <CardHeader className="">
                 <CardTitle className="text-base">{book.name}</CardTitle>
-                <CardDescription>By {book.author}</CardDescription>
+                <CardDescription>
+                  By {book.author} <Separator className="my-2" />
+                  {generateStars(Math.round(avg_rating.response.items[0].avg))} ({Math.round(avg_rating.response.items[0].avg)}/5)
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <img src={book.src} alt="book" />
-                <p className="mt-5">{book.description}</p>
+                <p className="mt-3">{book.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -106,7 +132,7 @@ const page = async ({ params }: BookIdPageProps) => {
             {/* <SummaryForm book_id={book.id.toString()} /> */}
           </div>
           <div className="space-y-4">
-          {summar.response.items.map((summary: any) => (
+            {summar.response.items.map((summary: any) => (
               <SummaryCard
                 id={summary.id}
                 title={summary.title}
@@ -128,7 +154,7 @@ const page = async ({ params }: BookIdPageProps) => {
               //     <p className="mt-5">{summary.content}</p>
               //   </CardContent>
               // </Card>
-            ))} 
+            ))}
           </div>
         </div>
       </div>

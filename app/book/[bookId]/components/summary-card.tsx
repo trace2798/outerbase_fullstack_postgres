@@ -92,9 +92,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
             </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <p className="mt-3">{content}</p>
-        </CardContent>
+        <CardContent>{content}</CardContent>
       </Card>
     </>
   );
