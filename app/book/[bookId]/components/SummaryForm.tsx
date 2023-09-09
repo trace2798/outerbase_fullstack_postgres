@@ -45,7 +45,7 @@ const formSchema = z.object({
   user_name: z.string().min(1, {
     message: "User name is required.",
   }),
-  rating: z.string(),
+  rating: z.number(),
 });
 
 export const SummaryForm = ({ book_id }: { book_id: string }) => {
@@ -63,7 +63,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
       book_id: book_id,
       title: "",
       user_name: user?.firstName ?? "Anonymous",
-      rating: "4",
+      rating: 4,
     },
   });
 
@@ -150,7 +150,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
                   <FormLabel>Rating (1-5)</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    defaultValue={String(field.value)}
                   >
                     <FormControl>
                       <SelectTrigger>
