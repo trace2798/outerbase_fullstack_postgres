@@ -64,6 +64,7 @@ const page = async ({ params }: BookIdPageProps) => {
       headers: {
         "content-type": "application/json",
       },
+      cache: "no-cache",
     }
   );
 

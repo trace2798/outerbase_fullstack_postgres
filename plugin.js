@@ -927,3 +927,4 @@ connectedCallback() {
   backgroundContentView.style.backgroundColor = 'blue';
   backgroundContentView.style.color = 'white';
 }
+
