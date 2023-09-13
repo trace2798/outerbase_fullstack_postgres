@@ -31,7 +31,7 @@ import { v4 as uuidv4 } from "uuid";
 const formSchema = z.object({
   feedback: z.string().min(5),
   sentiment: z.string(),
-  feedback_identifier: z.string(),
+  // feedback_identifier: z.string(),
 });
 
 interface FeedbackFormProps {}
@@ -44,7 +44,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({}) => {
     defaultValues: {
       feedback: "",
       sentiment: "",
-      feedback_identifier: uuidv4(),
+      // feedback_identifier: uuidv4(),
     },
   });
 
@@ -60,7 +60,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({}) => {
         },
         body: JSON.stringify({
           feedback: values.feedback,
-          feedback_identifier: values.feedback_identifier,
+          // feedback_identifier: values.feedback_identifier,
         }),
       });
       form.reset();

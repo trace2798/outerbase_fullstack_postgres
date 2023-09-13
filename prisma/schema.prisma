@@ -41,7 +41,7 @@ model Summary {
 model Feedback {
   id                  Int      @id @default(autoincrement())
   feedback            String
-  feedback_identifier String?   @default(uuid())
+  // feedback_identifier String?   @default(uuid())
   sentiment           String?
   createdAt           DateTime @default(now())
 }

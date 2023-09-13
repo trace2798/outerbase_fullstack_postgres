@@ -1,5 +1,5 @@
 // Just displays yes or no
-var wordsToCheck = ["bad", "yak", "Shoot", "magical", "inner", "stories", "writing", "lyrical", "Murakami"];
+var wordsToCheck = ["bad", "yak", "shoot", "magical", "inner", "stories", "writing", "lyrical", "murakami"];
 
 var privileges = ["cellValue", "configuration"];
 
@@ -151,7 +151,7 @@ class OuterbasePluginEditor_$PLUGIN_ID extends HTMLElement {
   }
 
   connectedCallback() {
-    var cellValue = this.getAttribute("cellvalue");
+    var cellValue = this.getAttribute("cellvalue").toLowerCase();
     var foundWords = wordsToCheck.filter((word) => cellValue.includes(word));
     var message = foundWords.length > 0 ? "contains words: " + foundWords.join(", ") : "no";
     var backgroundContentView = this.shadow.getElementById("background-content");
@@ -184,6 +184,36 @@ connectedCallback() {
   backgroundContentView.style.backgroundColor = 'blue';
   backgroundContentView.style.color = 'white';
 }
+
+//this part removes the code sensitive problem
+
+connectedCallback() {
+  var cellValue = this.getAttribute("cellvalue").toLowerCase();
+  var foundWords = wordsToCheck.filter((word) => cellValue.includes(word.toLowerCase()));
+  var message = foundWords.length > 0 ? "contains words: " + foundWords.join(", ") : "no";
+  var backgroundContentView = this.shadow.getElementById("background-content");
+  if (backgroundContentView) {
+    backgroundContentView.innerHTML = message;
+  }
+  backgroundContentView.style.backgroundColor = 'blue';
+  backgroundContentView.style.color = 'white';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Working cloudinary code
 var templateCell_$PLUGIN_ID = document.createElement("template");
