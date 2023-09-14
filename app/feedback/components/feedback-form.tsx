@@ -43,7 +43,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({}) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       feedback: "",
-      sentiment: "",
+      sentiment: "null",
       // feedback_identifier: uuidv4(),
     },
   });
@@ -52,6 +52,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({}) => {
 
   const onSubmit: SubmitHandler<FormData> = async (values) => {
     try {
+      console.log(values);
       //   await axios.post(`/api/feedback`, values);
       await fetch("https://middle-indigo.cmd.outerbase.io/addFeedback", {
         method: "POST",
@@ -60,6 +61,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({}) => {
         },
         body: JSON.stringify({
           feedback: values.feedback,
+          sentiment: values.sentiment,
           // feedback_identifier: values.feedback_identifier,
         }),
       });
