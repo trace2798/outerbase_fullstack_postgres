@@ -68,33 +68,44 @@ export const NewBookForm = ({}) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       console.log(values);
-      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/publishABook`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: values.user_id,
-          description: values.description,
-          author: values.author,
-          name: values.name,
-          user_name: values.user_name,
-          src: values.src,
-        }),
-      });
-      await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/sendEmailWithResend`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: values.user_id,
-          author: values.author,
-          name: values.name,
-          user_name: values.user_name,
-       
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/publishABook`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: values.user_id,
+            description: values.description,
+            author: values.author,
+            name: values.name,
+            user_name: values.user_name,
+            src: values.src,
+          }),
+        }
+      );
+      // console.log(response);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error.description);
+      }
+
+      await fetch(
+        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/sendEmailWithResend`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: values.user_id,
+            author: values.author,
+            name: values.name,
+            user_name: values.user_name,
+          }),
+        }
+      );
       toast({
         description: "Success.",
         duration: 3000,
@@ -104,7 +115,7 @@ export const NewBookForm = ({}) => {
     } catch (error) {
       toast({
         variant: "destructive",
-        description: "Something went wrong.",
+        description: "Outerbase Error" || "Something went wrong.",
         duration: 3000,
       });
     }

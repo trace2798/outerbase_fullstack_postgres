@@ -2,16 +2,14 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
-import prismadb from "@/lib/prismadb";
+import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
 import { SummaryForm } from "./components/SummaryForm";
 import LoginButton from "./components/login-button";
 import SummaryCard from "./components/summary-card";
-import { Separator } from "@/components/ui/separator";
 
 interface BookIdPageProps {
   params: {
@@ -29,7 +27,7 @@ const page = async ({ params }: BookIdPageProps) => {
   const idInInt = Number(params.bookId);
 
   const books = await fetch(
-    `${process.env.OUTERBASE_SECRET}/getBookById?id=${idInInt}`,
+    `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/getBookById?id=${idInInt}`,
     {
       method: "GET",
       headers: {
@@ -37,6 +35,7 @@ const page = async ({ params }: BookIdPageProps) => {
       },
     }
   );
+  console.log(books, "BOOKS");
   const data = await books.json();
   console.log(data.response, "DATA");
 
