@@ -57,7 +57,7 @@ const page: FC<pageProps> = async ({}) => {
         </h1>
         <Tabs defaultValue="account" className="w-full mx-[10vw] mb-10">
           <TabsList>
-            <TabsTrigger value="books">Books you published</TabsTrigger>
+            <TabsTrigger value="books">Books you added</TabsTrigger>
             <TabsTrigger value="summaries">Your Summaries/Reviews</TabsTrigger>
           </TabsList>
           <TabsContent value="books" className="space-y-4">

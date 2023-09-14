@@ -29,7 +29,7 @@ const Page: FC = () => {
     <>
       <div className="w-full h-[80vh] flex flex-col justify-center items-center">
         <h1 className="mb-10 text-2xl font-bold">
-          You need to be Logged in to publish a book
+          You need to be Logged in to add a book
         </h1>
         <LoginButton />
       </div>
