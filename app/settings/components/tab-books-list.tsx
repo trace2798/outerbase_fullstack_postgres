@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { formatTimeToNow } from "@/lib/utils";
 import { FC } from "react";
+import BookCard from "./book-card";
 
 interface TabBookListProps {
   name: string;
@@ -48,13 +49,13 @@ const TabBookList: FC<TabBookListProps> = async ({
   };
   return (
     <>
-      <Card className="w-full flex flex-col lg:flex-row ">
+    <BookCard author={author} name={name} description={description} src={src} avg_rating={avg_rating.response.items[0].avg} createdAt={createdAt} id={id} />
+      {/* <Card className="w-full flex flex-col lg:flex-row ">
         <CardHeader className="">
           <CardTitle className="text-base">{name}</CardTitle>
           <CardDescription>
             By {author} &nbsp; 
             {formatTimeToNow(dateObject)} 
-            {/* {formatTimeToNow(createdAt)} */}
             <br/>
             <h1 className="my-2">{generateStars(Math.round(avg_rating.response.items[0].avg))} ({Math.round(avg_rating.response.items[0].avg)}/5)</h1>
           </CardDescription>
@@ -65,7 +66,7 @@ const TabBookList: FC<TabBookListProps> = async ({
         <CardContent>
           <p className="mt-3">{description}</p>
         </CardContent>
-      </Card>
+      </Card> */}
     </>
   );
 };

@@ -60,7 +60,10 @@ const page: FC<pageProps> = async ({}) => {
             <TabsTrigger value="books">Books you added</TabsTrigger>
             <TabsTrigger value="summaries">Your Summaries/Reviews</TabsTrigger>
           </TabsList>
-          <TabsContent value="books" className="space-y-4">
+          <TabsContent
+            value="books"
+            className="space-y-4 grid grid-cols-1 lg:grid-cols-2"
+          >
             {books.response.items.map((book: any, index: any) => (
               <div key={index} className="">
                 <TabBookList
