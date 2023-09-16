@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { useUser } from "@clerk/nextjs";
-
 import { ImageUpload } from "@/components/image-upload";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -42,12 +41,13 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
   const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       change_image: "",
-      user_id: user?.id ?? "Anomynous",
+      user_id: user?.id,
       user_name: user?.firstName ?? "Anomynous",
       change_id: "",
     },
