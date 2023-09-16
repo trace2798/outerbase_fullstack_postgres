@@ -39,9 +39,19 @@ model Summary {
 }
 
 model Feedback {
-  id                  Int      @id @default(autoincrement())
-  feedback            String
+  id        Int      @id @default(autoincrement())
+  feedback  String
   // feedback_identifier String?   @default(uuid())
-  sentiment           String?
-  createdAt           DateTime @default(now())
+  sentiment String?
+  createdAt DateTime @default(now())
+}
+
+model Requestform {
+  id           Int      @id @default(autoincrement())
+  user_id      String
+  user_name    String
+  change_id    String
+  name         String
+  change_image String
+  createdAt    DateTime @default(now())
 }

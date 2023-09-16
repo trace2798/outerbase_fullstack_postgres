@@ -1,24 +1,15 @@
 "use client";
-import { FC } from "react";
+import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { formatTimeToNow } from "@/lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
+import { FC } from "react";
 
 interface BookCardProps {
   createdAt: Date;
@@ -60,32 +51,18 @@ const BookCard: FC<BookCardProps> = ({
               {generateStars(Math.round(avg_rating))} ({Math.round(avg_rating)}
               /5)
             </h1>
+            <h1>Book Id: {id} (Required for Image change request)</h1>
           </CardDescription>
-          <div className="md:w-[350px]">
+          <div className="md:w-[250px]">
             <img src={src} alt="book" className="" />
           </div>
         </CardHeader>
         <CardContent>
-          <div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-                >
-                  <MoreHorizontal className="h-4 w-4" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[200px]">
-                <Link href={`/summary/edit/${id}`}>
-                  {" "}
-                  <DropdownMenuItem>Request Image Change</DropdownMenuItem>
-                </Link>
-                <DropdownMenuSeparator />
-                {/* <DropdownMenuItem onClick={onDelete}>Delete</DropdownMenuItem> */}
-              </DropdownMenuContent>
-            </DropdownMenu>
+          <div className="mt-5">
+            <Link href="/settings/requestForm">
+              <Button variant="ghost">Change Image Form</Button>
+            </Link>
+            {/* <RequestSheet src={src} name={name} /> */}
           </div>
           <p className="mt-3">{description}</p>
         </CardContent>

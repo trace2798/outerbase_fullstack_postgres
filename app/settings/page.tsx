@@ -62,7 +62,7 @@ const page: FC<pageProps> = async ({}) => {
           </TabsList>
           <TabsContent
             value="books"
-            className="space-y-4 grid grid-cols-1 lg:grid-cols-2"
+            className="space-y-4 space-x-4 grid grid-cols-1 lg:grid-cols-2"
           >
             {books.response.items.map((book: any, index: any) => (
               <div key={index} className="">
