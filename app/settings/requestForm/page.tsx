@@ -20,7 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-interface pageProps {}
+interface RequestFormPageProps {}
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -38,7 +38,7 @@ const formSchema = z.object({
   change_id: z.string().min(1, {}),
 });
 
-const page: FC<pageProps> = ({}) => {
+const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
   const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
@@ -188,4 +188,4 @@ const page: FC<pageProps> = ({}) => {
   );
 };
 
-export default page;
+export default RequestFormPage;
