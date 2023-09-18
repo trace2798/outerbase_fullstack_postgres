@@ -111,7 +111,7 @@ const ConversationPage = () => {
         </ScrollArea>
         <div ref={scrollRef} />
         {isLoading && (
-          <div className="p-4 rounded-lg w-full flex items-center justify-center bg-muted mt-10">
+          <div className="p-4 rounded-lg w-1/2 flex items-center justify-center bg-muted mt-10">
             <BeatLoader
               color={theme === "light" ? "black" : "white"}
               size={5}
