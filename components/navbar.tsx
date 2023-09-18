@@ -30,7 +30,7 @@ export const Navbar: FC<navbarProps> = ({}) => {
           </Link>
         </div>
         <div className="flex items-center gap-x-3">
-          <SearchSheet />
+          {userId && <SearchSheet />}
           <ModeToggle />
           {userId ? <UserButton afterSignOutUrl="/" /> : <LoginButton />}
         </div>

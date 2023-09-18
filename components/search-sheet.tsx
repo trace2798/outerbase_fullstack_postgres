@@ -13,13 +13,13 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import axios from "axios";
+import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Empty } from "./empty";
 import { Loader } from "./loader";
-import { useToast } from "./ui/use-toast";
-import Link from "next/link";
 import { Separator } from "./ui/separator";
+import { useToast } from "./ui/use-toast";
 
 type PromptFormValues = {
   query: string;
@@ -52,12 +52,6 @@ type ReRankResponse = {
 export function SearchSheet() {
   const { toast } = useToast();
   const [results, setResults] = useState<ReRankResponse[]>([]);
-  // const [data, setData] = useState<{
-  //   routes: { route: string; description: string }[];
-  // }>({ routes: [] });
-  // const [descriptionToRouteMap, setDescriptionToRouteMap] = useState<
-  //   Record<string, string>
-  // >({});
 
   const form = useForm<PromptFormValues>({
     // resolver: zodResolver(textSchema),
@@ -124,7 +118,7 @@ export function SearchSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Search</Button>
+        <Button variant="outline">Semantic search with AI</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>

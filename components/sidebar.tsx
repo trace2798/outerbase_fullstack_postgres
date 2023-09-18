@@ -1,6 +1,6 @@
 "use client";
 
-import { Book, Plus, Settings } from "lucide-react";
+import { Book, Plus, Settings, Bot } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -30,6 +30,11 @@ export const Sidebar = ({}: SidebarProps) => {
       icon: Settings,
       href: "/settings",
       label: "Settings",
+    },
+    {
+      icon: Bot,
+      href: "/ai",
+      label: "Chat",
     },
   ];
 
