@@ -9,6 +9,27 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function POST(req: Request) {
+  const { userId } = auth();
+  console.log("1 FIrst ONe");
+  const bookByUserId = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/getBooksByUserId?user_id=${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+
+  const books = await bookByUserId.json();
+  console.log(books, "INSIDE API");
+  const bookDetails = books.response.items
+    .map((book: any, index: any) => {
+      // Replace this with actual properties of the book object
+      return `Book ${index + 1}: ${book.name}, ${book.author}`;
+    })
+    .join(", ");
+  console.log(bookDetails, "BOOK DETAIL");
   try {
     const { userId } = auth();
     const body = await req.json();
@@ -27,6 +48,12 @@ export async function POST(req: Request) {
     if (!messages) {
       return new NextResponse("Messages are required", { status: 400 });
     }
+
+    // Use the data from the endpoint in the messages
+    messages.push({
+      role: "system",
+      content: `You are a data analyst. You must answer only based on this ${bookDetails}`,
+    });
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
