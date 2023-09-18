@@ -5,11 +5,14 @@ import { UserButton } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import { Poppins } from "next/font/google";
 import { MobileSidebar } from "./mobile-sidebar";
+import { auth, redirectToSignIn } from "@clerk/nextjs";
+import LoginButton from "./login-button";
 
 const font = Poppins({ weight: "600", subsets: ["latin"] });
 interface navbarProps {}
 
 export const Navbar: FC<navbarProps> = ({}) => {
+  const { userId } = auth();
   return (
     <>
       <div className="fixed w-full z-50 flex justify-between items-center py-2 px-4 h-16 border-b border-primary/10 dark:bg-zinc-900">
@@ -27,14 +30,8 @@ export const Navbar: FC<navbarProps> = ({}) => {
           </Link>
         </div>
         <div className="flex items-center gap-x-3">
-          {/* {!isPro && (
-          <Button onClick={proModal.onOpen} size="sm" variant="premium">
-            Upgrade
-            <Sparkles className="h-4 w-4 fill-white text-white ml-2" />
-          </Button>
-        )} */}
           <ModeToggle />
-          <UserButton afterSignOutUrl="/" />
+          {userId ? <UserButton afterSignOutUrl="/" /> : <LoginButton />}
         </div>
       </div>
     </>
