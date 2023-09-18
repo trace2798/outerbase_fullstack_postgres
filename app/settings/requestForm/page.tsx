@@ -73,27 +73,6 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
           }),
         }
       );
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error.description);
-      }
-
-      //   await fetch(
-      //     `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/sendEmailWithResend`,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "content-type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         user_id: values.user_id,
-      //         name: values.name,
-      //         user_name: values.user_name,
-      //         change_image: values.change_image,
-      //         change_id: values.change_id,
-      //       }),
-      //     }
-      //   );
       toast({
         description: "Success.",
         duration: 3000,
@@ -103,7 +82,7 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
     } catch (error) {
       toast({
         variant: "destructive",
-        description: "Outerbase Error" || "Something went wrong.",
+        description: "Something went wrong.",
         duration: 3000,
       });
     }
@@ -178,7 +157,6 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
             <div className="w-full flex justify-center">
               <Button size="lg" disabled={isLoading}>
                 Send request
-                {/* <Wand2 className="w-4 h-4 ml-2" /> */}
               </Button>
             </div>
           </form>

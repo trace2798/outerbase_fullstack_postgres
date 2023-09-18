@@ -3,7 +3,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
@@ -88,7 +88,10 @@ const page = async ({ params }: BookIdPageProps) => {
                 <CardTitle className="text-base">{book.name}</CardTitle>
                 <CardDescription>
                   By {book.author} <Separator className="my-2" />
-                  {generateStars(Math.round(avg_rating.response.items[0].avg))} ({Math.round(avg_rating.response.items[0].avg)}/5)
+                  {generateStars(
+                    Math.round(avg_rating.response.items[0].avg)
+                  )}{" "}
+                  ({Math.round(avg_rating.response.items[0].avg)}/5)
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -108,20 +111,23 @@ const page = async ({ params }: BookIdPageProps) => {
                 <LoginButton />
               </div>
             )}
-         </div>
+          </div>
           <div className="space-y-4">
-            {summar.response.items.slice().reverse().map((summary: any) => (
-              <SummaryCard
-                id={summary.id}
-                title={summary.title}
-                content={summary.content}
-                user_name={summary.user_name}
-                createdAt={summary.createdAt}
-                user_id={summary.user_id}
-                key={summary.id}
-                rating={summary.rating}
-              />
-            ))}
+            {summar.response.items
+              .slice()
+              .reverse()
+              .map((summary: any) => (
+                <SummaryCard
+                  id={summary.id}
+                  title={summary.title}
+                  content={summary.content}
+                  user_name={summary.user_name}
+                  createdAt={summary.createdAt}
+                  user_id={summary.user_id}
+                  key={summary.id}
+                  rating={summary.rating}
+                />
+              ))}
           </div>
         </div>
       </div>
