@@ -6,6 +6,7 @@ import { FC } from "react";
 import LoginButton from "./login-button";
 import { MobileSidebar } from "./mobile-sidebar";
 import { ModeToggle } from "./mode-toggle";
+import { SearchSheet } from "./search-sheet";
 
 const font = Poppins({ weight: "600", subsets: ["latin"] });
 interface navbarProps {}
@@ -29,6 +30,7 @@ export const Navbar: FC<navbarProps> = ({}) => {
           </Link>
         </div>
         <div className="flex items-center gap-x-3">
+          <SearchSheet />
           <ModeToggle />
           {userId ? <UserButton afterSignOutUrl="/" /> : <LoginButton />}
         </div>
