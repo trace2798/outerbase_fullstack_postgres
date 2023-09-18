@@ -4,7 +4,7 @@ import * as z from "zod";
 import axios from "axios";
 import { MessageSquare } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { ElementRef, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 
@@ -20,11 +20,18 @@ import { UserAvatar } from "@/components/user-avatar";
 import { formSchema } from "./constants";
 import { BotAvatar } from "./components/bot-avatar";
 import { Empty } from "@/components/empty";
+import { BeatLoader } from "react-spinners";
+import { useTheme } from "next-themes";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const ConversationPage = () => {
   const router = useRouter();
+  const { theme } = useTheme();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
-
+  const scrollRef = useRef<ElementRef<"div">>(null);
+  useEffect(() => {
+    scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages.length]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,7 +57,6 @@ const ConversationPage = () => {
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
-        // proModal.onOpen();
       } else {
         // toast.error("Something went wrong.");
       }
@@ -61,15 +67,58 @@ const ConversationPage = () => {
 
   return (
     <div>
-      {/* <Heading
-        title="Conversation"
-        description="Our most advanced conversation model."
-        icon={MessageSquare}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
-      /> */}
-      <div className="px-4 lg:px-8">
-        <div>
+      <div className="px-4 lg:px-8 flex flex-col">
+        <ScrollArea className="space-y-4 mt-4">
+          {messages.length === 0 && !isLoading && (
+            <Empty label="No conversation started." />
+          )}
+          <div className="flex flex-col-reverse gap-y-4">
+            {/* {[...messages]
+              .slice()
+              .reverse()
+              .map((message) => (
+                <div
+                  key={message.content}
+                  className={cn(
+                    "p-8 w-full flex items-start gap-x-8 rounded-lg",
+                    message.role === "user"
+                      ? "bg-muted-foreground border border-black/10 max-w-sm"
+                      : "bg-muted max-w-sm"
+                  )}
+                >
+                  {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                  <p className="text-sm">{message.content}</p>
+                </div>
+              ))} */}
+            {[...messages]
+              .slice()
+              .reverse()
+              .map((message) => (
+                <div
+                  key={message.content}
+                  className={cn(
+                    "p-4 w-full flex items-start gap-x-8 rounded-lg max-w-lg",
+                    message.role === "user"
+                      ? "self-end bg-muted-foreground border border-black/10"
+                      : "self-start bg-muted"
+                  )}
+                >
+                  {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
+                  <p className="text-sm">{message.content}</p>
+                </div>
+              ))}
+          </div>
+        </ScrollArea>
+        <div ref={scrollRef} />
+        {isLoading && (
+          <div className="p-4 rounded-lg w-full flex items-center justify-center bg-muted mt-10">
+            <BeatLoader
+              color={theme === "light" ? "black" : "white"}
+              size={5}
+            />
+          </div>
+        )}
+        <div className="my-10 ">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -94,7 +143,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="Ask the database a question. I will only respond based on the data you have added."
+                        placeholder="Ask your data. It will only respond based on the data you have added."
                         {...field}
                       />
                     </FormControl>
@@ -111,32 +160,6 @@ const ConversationPage = () => {
               </Button>
             </form>
           </Form>
-        </div>
-        <div className="space-y-4 mt-4">
-          {isLoading && (
-            <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-              <Loader description="your answer is getting generated" />
-            </div>
-          )}
-          {messages.length === 0 && !isLoading && (
-            <Empty label="No conversation started." />
-          )}
-          <div className="flex flex-col-reverse gap-y-4">
-            {messages.map((message) => (
-              <div
-                key={message.content}
-                className={cn(
-                  "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                  message.role === "user"
-                    ? "bg-white border border-black/10"
-                    : "bg-muted"
-                )}
-              >
-                {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                <p className="text-sm">{message.content}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>
