@@ -32,6 +32,28 @@ export async function POST(req: Request) {
     })
     .join(", ");
   console.log(bookDetails, "BOOK DETAIL");
+  const summariesByUserId = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/getSummariesByUserId?user_id=${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+  console.log(summariesByUserId, "OUTERBASE COMMAND Summary");
+  console.log(books, "BOOKS");
+  const summaries = await summariesByUserId.json();
+  const summaryDetails = summaries.response.items
+    .map((summary: any, index: any) => {
+      // Replace this with actual properties of the book object
+      return `Book ${index + 1}: ${summary.content}, ${summary.book_id}, ${
+        summary.createdAt
+      }`;
+    })
+    .join(", ");
+  console.log(summaryDetails, "SUMMARY DETAIL");
+
   try {
     const { userId } = auth();
     const body = await req.json();
@@ -54,7 +76,7 @@ export async function POST(req: Request) {
     // Use the data from the endpoint in the messages
     messages.push({
       role: "system",
-      content: `You are a data analyst. You must answer only based on this ${bookDetails}`,
+      content: `You are a data analyst. You must answer only based on this books${bookDetails} and summaries: ${summaryDetails} the user has submitted. If user ask about summaries can the book they wrote it too.`,
     });
 
     const response = await openai.createChatCompletion({

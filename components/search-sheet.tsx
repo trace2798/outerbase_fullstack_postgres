@@ -122,7 +122,7 @@ export function SearchSheet() {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Search Site</SheetTitle>
+          <SheetTitle>Search Book</SheetTitle>
           <SheetDescription>
             Search made possible with Co.ReRank API
           </SheetDescription>
