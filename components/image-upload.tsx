@@ -4,7 +4,6 @@ import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-
 interface ImageUploadProps {
   value: string;
   onChange: (src: string) => void;
@@ -28,9 +27,12 @@ export const ImageUpload = ({
 
   return (
     <div className="space-y-4 w-full flex flex-col justify-center items-center">
-      
-      <CldUploadButton options={{ maxFiles: 1 }} onUpload={(result: any) => onChange(result.info.secure_url)} uploadPreset="zb8bzdvq">
-        <div 
+      <CldUploadButton
+        options={{ maxFiles: 1 }}
+        onUpload={(result: any) => onChange(result.info.secure_url)}
+        uploadPreset="zb8bzdvq"
+      >
+        <div
           className="
             p-4 
             border-4 

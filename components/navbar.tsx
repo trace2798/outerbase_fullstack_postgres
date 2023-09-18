@@ -1,12 +1,11 @@
+import { cn } from "@/lib/utils";
+import { UserButton, auth } from "@clerk/nextjs";
+import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { FC } from "react";
-import { ModeToggle } from "./mode-toggle";
-import { UserButton } from "@clerk/nextjs";
-import { cn } from "@/lib/utils";
-import { Poppins } from "next/font/google";
-import { MobileSidebar } from "./mobile-sidebar";
-import { auth, redirectToSignIn } from "@clerk/nextjs";
 import LoginButton from "./login-button";
+import { MobileSidebar } from "./mobile-sidebar";
+import { ModeToggle } from "./mode-toggle";
 
 const font = Poppins({ weight: "600", subsets: ["latin"] });
 interface navbarProps {}
