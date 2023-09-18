@@ -26,7 +26,9 @@ export async function POST(req: Request) {
   const bookDetails = books.response.items
     .map((book: any, index: any) => {
       // Replace this with actual properties of the book object
-      return `Book ${index + 1}: ${book.name}, ${book.author}`;
+      return `Book ${index + 1}: ${book.name}, ${book.author}, ${
+        book.createdAt
+      }`;
     })
     .join(", ");
   console.log(bookDetails, "BOOK DETAIL");

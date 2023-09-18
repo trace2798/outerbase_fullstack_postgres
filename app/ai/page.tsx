@@ -94,7 +94,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="How do I calculate the radius of a circle?"
+                        placeholder="Ask the database a question. I will only respond based on the data you have added."
                         {...field}
                       />
                     </FormControl>
