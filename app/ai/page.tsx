@@ -205,7 +205,7 @@ export default function Chat() {
             <p className="w-full">Ask a question to get started.</p>
             <p className="w-full mt-3">
               {" "}
-              Not custom trained so answer's might be inaccurate.
+              Not custom trained so answer&apos;s might be inaccurate.
             </p>
             <p className="w-full mt-3">
               The data for the answers have been fetch using Outerbase Commands.
