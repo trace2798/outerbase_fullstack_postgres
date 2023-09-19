@@ -51,27 +51,26 @@ export async function POST(req: Request) {
     })
     .join(", ");
   console.log(reviewDetails, "SUMMARY DETAIL");
-  // const allBooks = await fetch(
-  //   `https://middle-indigo.cmd.outerbase.io/getAllBooks`,
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //   }
-  // );
 
-  // const allbooks = await allBooks.json();
-  // console.log(books, "INSIDE API");
-  // const allbookDetails = allbooks.response.items
-  //   .map((book: any, index: any) => {
-  //     // Replace this with actual properties of the book object
-  //     return `Book ${index + 1}: ${book.name}, ${book.author}, ${
-  //       book.createdAt
-  //     }, ${book.id}`;
-  //   })
-  //   .join(", ");
-  // console.log(allbookDetails, "ALL BOOK DETAIL");
+  const allBooks = await fetch(
+    `https://middle-indigo.cmd.outerbase.io/getAllBooks`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
+
+  const allbooks = await allBooks.json();
+  console.log(books, "INSIDE API");
+  const allbookDetails = allbooks.response.items
+    .map((book: any, index: any) => {
+      // Replace this with actual properties of the book object
+      return `Book List from Database:${book.name}, Book Database ID:${book.id}`;
+    })
+    .join(", ");
+  console.log(allbookDetails, "ALL BOOK DETAIL");
   try {
     const { userId } = auth();
     const body = await req.json();
@@ -95,7 +94,7 @@ export async function POST(req: Request) {
     messages.push({
       role: "system",
       // content: `As a data analyst, your task is to answer questions based on the books add by the user: ${bookDetails} and summaries: ${summaryDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. For reference, here is the list of all the books in the database: ${allbookDetails}.`,
-      content: `As a data analyst named Fionaa, your task is to answer questions based on the books add by the user: ${bookDetails} and reviews: ${reviewDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. `,
+      content: `As a data analyst named Fionaa, your task is to answer questions based on the books add by the user: ${bookDetails} and reviews: ${reviewDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. Only for reference: ${allbookDetails}`,
     });
     console.log(messages, "MESSAGES");
     const response = await openai.chat.completions.create({
