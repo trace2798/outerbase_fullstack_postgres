@@ -2,6 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { OpenAIStream, StreamingTextResponse } from "ai";
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
 });
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
     .join(", ");
   console.log(bookDetails, "BOOK DETAIL");
 
-  const summariesByUserId = await fetch(
+  const reviewsByUserId = await fetch(
     `https://middle-indigo.cmd.outerbase.io/getSummariesByUserId?user_id=${userId}`,
     {
       method: "GET",
@@ -40,17 +41,16 @@ export async function POST(req: Request) {
       },
     }
   );
-  console.log(summariesByUserId, "OUTERBASE COMMAND Summary");
-  console.log(books, "BOOKS");
-  const summaries = await summariesByUserId.json();
-  const summaryDetails = summaries.response.items
-    .map((summary: any, index: any) => {
-      return `Book ${index + 1}: ${summary.content}, ${summary.book_id}, ${
-        summary.createdAt
-      }`;
+  console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
+  const reviews = await reviewsByUserId.json();
+  const reviewDetails = reviews.response.items
+    .map((review: any, index: any) => {
+      return `Review ${index + 1}: ${review.title}, ${
+        review.content
+      }, Database id for book: ${review.book_id}, ${review.createdAt}`;
     })
     .join(", ");
-  console.log(summaryDetails, "SUMMARY DETAIL");
+  console.log(reviewDetails, "SUMMARY DETAIL");
   // const allBooks = await fetch(
   //   `https://middle-indigo.cmd.outerbase.io/getAllBooks`,
   //   {
@@ -95,7 +95,7 @@ export async function POST(req: Request) {
     messages.push({
       role: "system",
       // content: `As a data analyst, your task is to answer questions based on the books add by the user: ${bookDetails} and summaries: ${summaryDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. For reference, here is the list of all the books in the database: ${allbookDetails}.`,
-      content: `As a data analyst, your task is to answer questions based on the books add by the user: ${bookDetails} and summaries: ${summaryDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. `,
+      content: `As a data analyst named Fionaa, your task is to answer questions based on the books add by the user: ${bookDetails} and reviews: ${reviewDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. `,
     });
     console.log(messages, "MESSAGES");
     const response = await openai.chat.completions.create({
