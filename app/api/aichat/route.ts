@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       // Replace this with actual properties of the book object
       return `Book ${index + 1}: ${book.name}, ${book.author}, ${
         book.createdAt
-      }`;
+      }, ${book.id}`;
     })
     .join(", ");
   console.log(bookDetails, "BOOK DETAIL");
@@ -46,7 +46,6 @@ export async function POST(req: Request) {
   const summaries = await summariesByUserId.json();
   const summaryDetails = summaries.response.items
     .map((summary: any, index: any) => {
-      // Replace this with actual properties of the book object
       return `Book ${index + 1}: ${summary.content}, ${summary.book_id}, ${
         summary.createdAt
       }`;
@@ -96,7 +95,7 @@ export async function POST(req: Request) {
     // Use the data from the endpoint in the messages
     messages.push({
       role: "system",
-      content: `As a data analyst, your task is to answer questions based on the books: ${bookDetails} and summaries: ${summaryDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. For reference, here is the list of all the books in the database: ${allbookDetails}.`,
+      content: `As a data analyst, your task is to answer questions based on the books add by the user: ${bookDetails} and summaries: ${summaryDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. For reference, here is the list of all the books in the database: ${allbookDetails}.`,
     });
     console.log(messages, "MESSAGES");
     const response = await openai.createChatCompletion({
