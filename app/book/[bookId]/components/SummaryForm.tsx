@@ -54,7 +54,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
   const { user } = useUser();
   console.log(user);
   console.log(book_id);
-  console.log(user?.id);
+  console.log(user?.firstName);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

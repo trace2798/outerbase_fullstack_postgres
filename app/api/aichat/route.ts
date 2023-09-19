@@ -32,6 +32,7 @@ export async function POST(req: Request) {
     })
     .join(", ");
   console.log(bookDetails, "BOOK DETAIL");
+
   const summariesByUserId = await fetch(
     `https://middle-indigo.cmd.outerbase.io/getSummariesByUserId?user_id=${userId}`,
     {
