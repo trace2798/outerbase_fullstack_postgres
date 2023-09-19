@@ -85,7 +85,9 @@ const page = async ({ params }: BookIdPageProps) => {
           {data.response.items.map((book: any, index: any) => (
             <Card key={index}>
               <CardHeader className="">
-                <CardTitle className="text-base">{book.name}</CardTitle>
+                <CardTitle className="text-lg font-satoshiBold">
+                  {book.name}
+                </CardTitle>
                 <CardDescription>
                   By {book.author} <Separator className="my-2" />
                   {generateStars(
@@ -96,7 +98,7 @@ const page = async ({ params }: BookIdPageProps) => {
               </CardHeader>
               <CardContent>
                 <img src={book.src} alt="book" />
-                <p className="mt-3">{book.description}</p>
+                <p className="mt-3 font-ranadeLight">{book.description}</p>
               </CardContent>
             </Card>
           ))}

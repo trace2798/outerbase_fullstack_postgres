@@ -12,13 +12,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
 import { formatTimeToNow } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import axios from "axios";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -97,7 +95,9 @@ const SummaryCard: FC<SummaryCardProps> = ({
         <CardHeader className="">
           <div className="flex justify-between">
             <div>
-              <CardTitle className="text-base">{title}</CardTitle>
+              <CardTitle className="text-base font-satoshiBlack">
+                {title}
+              </CardTitle>
               <CardDescription>
                 {formatTimeToNow(dateObject)} <br />
                 {data.response.items.map((book: any, index: any) => (
@@ -136,7 +136,7 @@ const SummaryCard: FC<SummaryCardProps> = ({
           </div>
         </CardHeader>
         <CardContent>
-          <p className="">{content}</p>
+          <p className="font-ranadeRegular">{content}</p>
         </CardContent>
       </Card>
     </>

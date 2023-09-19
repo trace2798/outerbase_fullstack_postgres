@@ -11,16 +11,13 @@ import { FC } from "react";
 interface pageProps {}
 
 const page: FC<pageProps> = async ({}) => {
-  const books = await fetch(
-    `${process.env.OUTERBASE_SECRET}/getAllBooks`,
-    {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-      cache: "no-cache",
-    }
-  );
+  const books = await fetch(`${process.env.OUTERBASE_SECRET}/getAllBooks`, {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+    },
+    cache: "no-cache",
+  });
   const data = await books.json();
   console.log(data, "DATA");
   return (
@@ -30,7 +27,9 @@ const page: FC<pageProps> = async ({}) => {
           <Card key={index} className="max-w-sm">
             <Link href={`/book/${book.id}`}>
               <CardHeader>
-                <CardTitle className="text-base">{book.name}</CardTitle>
+                <CardTitle className="text-base font-ranadeLight">
+                  {book.name}
+                </CardTitle>
                 <CardDescription>By {book.author}</CardDescription>
                 <CardContent>
                   <img src={book.src} alt="book" />

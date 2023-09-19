@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { formatTimeToNow } from "@/lib/utils";
 import Link from "next/link";
@@ -60,11 +60,13 @@ const BookCard: FC<BookCardProps> = ({
         <CardContent>
           <div className="mt-5">
             <Link href="/settings/requestForm">
-              <Button variant="ghost">Change Image Form</Button>
+              <Button variant="ghost" className="font-satoshiMedium">
+                Change Image Form
+              </Button>
             </Link>
             {/* <RequestSheet src={src} name={name} /> */}
           </div>
-          <p className="mt-3">{description}</p>
+          <p className="mt-3 font-ranadeLight">{description}</p>
         </CardContent>
       </Card>
     </>

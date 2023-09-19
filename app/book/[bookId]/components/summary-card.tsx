@@ -90,7 +90,9 @@ const SummaryCard: FC<SummaryCardProps> = ({
         <CardHeader>
           <div className="flex justify-between">
             <div>
-              <CardTitle className="text-base capitalize">{title}</CardTitle>
+              <CardTitle className="text-base capitalize font-ranadeMedium">
+                {title}
+              </CardTitle>
               <CardDescription>
                 By {user_name} {formatTimeToNow(dateObject)} <br />{" "}
                 <h1 className="my-2"> {generateStars(Number(rating))}</h1>
@@ -132,7 +134,9 @@ const SummaryCard: FC<SummaryCardProps> = ({
             </div>
           </div>
         </CardHeader>
-        <CardContent className="normal-case">{content}</CardContent>
+        <CardContent className="normal-case font-ranadeLight">
+          {content}
+        </CardContent>
       </Card>
     </>
   );
