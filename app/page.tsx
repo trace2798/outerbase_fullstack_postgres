@@ -35,7 +35,15 @@ export default function Home() {
             Easily share and review books you love{" "}
           </h2>
           <h3 className="text-xl mt-5 font-ranadeRegular">
-            This is my submission for Outerbase X Hashnode hackathon.{" "}
+            This is my submission for{" "}
+            <a
+              href="https://hashnode.com/hackathons/outerbase"
+              target="_blank"
+              className="text-2xl hover:underline font-satoshiBlack bg-gradient-to-r bg-clip-text text-transparent from-yellow-500 via-purple-500 to-red-500 animate-text"
+            >
+              Outerbase x Hashnode
+            </a>{" "}
+            hackathon.{" "}
             <a
               href="https://shreyas-chaliha.hashnode.dev/"
               target="_blank"
