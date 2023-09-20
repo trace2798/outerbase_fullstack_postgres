@@ -50,7 +50,7 @@ const page: FC<pageProps> = async ({}) => {
   const summaries = await summariesByUserId.json();
   return (
     <>
-      <div className="pt-24 flex mx-[10vw] flex-col w-fit justify-center items-center">
+      <div className="pt-12 flex mx-[5vw] flex-col w-fit justify-center items-center">
         <h1 className="mb-10 text-2xl">
           Here you can view all the books you have added and all the
           summaries/reviews you have posted

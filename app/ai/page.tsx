@@ -173,10 +173,18 @@ import { useChat } from "ai/react";
 import { useTheme } from "next-themes";
 import { ElementRef, useEffect, useRef } from "react";
 import { BeatLoader } from "react-spinners";
+import { EmptyStateAI } from "./components/empty";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, data, isLoading } =
-    useChat();
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    data,
+    isLoading,
+    setInput,
+  } = useChat();
   const { theme } = useTheme();
   const scrollRef = useRef<ElementRef<"div">>(null);
   useEffect(() => {
@@ -201,16 +209,7 @@ export default function Chat() {
         ))
       ) : (
         <>
-          <div className="flex flex-col items-center w-full  justify-center">
-            <p className="w-full">Ask a question to get started.</p>
-            <p className="w-full mt-3">
-              {" "}
-              Not custom trained so answer&apos;s might be inaccurate.
-            </p>
-            <p className="w-full mt-3">
-              The data for the answers have been fetch using Outerbase Commands.
-            </p>
-          </div>
+          <EmptyStateAI setInput={setInput} />
         </>
       )}
       <form onSubmit={handleSubmit}>
