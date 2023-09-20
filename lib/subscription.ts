@@ -13,7 +13,7 @@ export const checkSubscription = async () => {
 
   const userSubscription = await prismadb.userSubscription.findUnique({
     where: {
-      userId: userId,
+      user_id: userId,
     },
     select: {
       stripeSubscriptionId: true,

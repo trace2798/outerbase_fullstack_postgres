@@ -1,8 +1,6 @@
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-
-import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
 
 export async function POST(req: Request) {
@@ -32,17 +30,37 @@ export async function POST(req: Request) {
       return new NextResponse("User id is required", { status: 400 });
     }
 
-    await prismadb.userSubscription.create({
-      data: {
-        userId: session?.metadata?.userId,
-        stripeSubscriptionId: subscription.id,
-        stripeCustomerId: subscription.customer as string,
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
-      },
-    });
+    // await prismadb.userSubscription.create({
+    //   data: {
+    //     user_id: session?.metadata?.userId,
+    //     stripeSubscriptionId: subscription.id,
+    //     stripeCustomerId: subscription.customer as string,
+    //     stripePriceId: subscription.items.data[0].price.id,
+    //     stripeCurrentPeriodEnd: new Date(
+    //       subscription.current_period_end * 1000
+    //     ),
+    //   },
+    // });
+    let data = {
+      user_id: session?.metadata?.userId,
+      stripe_subscription_id: subscription.id,
+      stripe_customer_id: subscription.customer as string,
+      stripe_price_id: subscription.items.data[0].price.id,
+      stripe_current_period_end: new Date(
+        subscription.current_period_end * 1000
+      ),
+    };
+
+    await fetch(
+      "https://middle-indigo.cmd.outerbase.io/createUserSubscription",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
   }
 
   if (event.type === "invoice.payment_succeeded") {
@@ -50,17 +68,33 @@ export async function POST(req: Request) {
       session.subscription as string
     );
 
-    await prismadb.userSubscription.update({
-      where: {
-        stripeSubscriptionId: subscription.id,
-      },
-      data: {
-        stripePriceId: subscription.items.data[0].price.id,
-        stripeCurrentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ),
-      },
-    });
+    // await prismadb.userSubscription.update({
+    //   where: {
+    //     stripeSubscriptionId: subscription.id,
+    //   },
+    //   data: {
+    //     stripePriceId:
+    //     stripeCurrentPeriodEnd: new Date(
+    //       subscription.current_period_end * 1000
+    //     ),
+    //   },
+    // });
+    await fetch(
+      "https://middle-indigo.cmd.outerbase.io/updateUserSubscription",
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          stripe_price_id: subscription.items.data[0].price.id,
+          stripe_subscription_id: subscription.id,
+          stripe_current_period_end: new Date(
+            subscription.current_period_end * 1000
+          ),
+        }),
+      }
+    );
   }
 
   return new NextResponse(null, { status: 200 });

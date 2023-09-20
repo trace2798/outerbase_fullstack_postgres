@@ -1,11 +1,9 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-
-import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 
-const settingsUrl = absoluteUrl("/settings");
+const settingsUrl = absoluteUrl("/payment");
 
 export async function GET() {
   try {
@@ -16,18 +14,33 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const userSubscription = await prismadb.userSubscription.findUnique({
-      where: {
-        userId,
-      },
-    });
+    // const userSubscription = await prismadb.userSubscription.findUnique({
+    //   where: {
+    //     user_id: userId,
+    //   },
+    // });
+    // console.log(userSubscription, "SUBS");
 
-    if (userSubscription && userSubscription.stripeCustomerId) {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/findStripeSubscription?userId=${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data, "DATA");
+    const userSubscription = data.response.items[0];
+
+    console.log(userSubscription, "SUBS");
+    if (userSubscription && userSubscription.stripe_customer_id) {
       const stripeSession = await stripe.billingPortal.sessions.create({
-        customer: userSubscription.stripeCustomerId,
+        customer: userSubscription.stripe_customer_id,
         return_url: settingsUrl,
       });
-
+      console.log(JSON.stringify({ url: stripeSession.url }), "URL FIRST");
       return new NextResponse(JSON.stringify({ url: stripeSession.url }));
     }
 
@@ -46,7 +59,7 @@ export async function GET() {
               name: "Summize",
               description: "Review and find books you love",
             },
-            unit_amount: 2000,
+            unit_amount: 1000,
             recurring: {
               interval: "month",
             },
