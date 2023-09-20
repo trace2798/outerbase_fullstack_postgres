@@ -288,7 +288,7 @@ export async function POST(req: Request) {
 
     // Add review and its associated book to the array
     reviewsWithBooks.push({
-      review: `Review ${review.id}: ${review.title}, book database id: ${review.book_id}, ${review.createdAt}`,
+      review: `Review ${review.id}: ${review.title} at ${review.createdAt}`,
       book: `${bookForThisReview.name} written by ${bookForThisReview.author}`,
     });
   }
@@ -323,7 +323,7 @@ export async function POST(req: Request) {
       // Push review and its associated book
       messages.push({
         role: "system",
-        content: `Review added by the user: ${item.review} on ${item.book}.`,
+        content: `${item.review} on ${item.book}.`,
       });
     }
 
