@@ -103,7 +103,7 @@ const SettingsPage = async () => {
             </Card>
           </>
         ) : (
-          <Card className="max-w-sm">
+          <Card className="max-w-sm mb-5">
             <CardHeader>
               <CardTitle>You are on the free plan</CardTitle>
               <CardDescription>
@@ -130,7 +130,7 @@ const SettingsPage = async () => {
                 </div>
                 <div className="space-y-1 w-full">
                   <p className="text-sm font-medium leading-none">
-                    For More information on Test card number check
+                    For More information on Test card number
                   </p>
                   <p className="text-sm text-indigo-400">
                     <a

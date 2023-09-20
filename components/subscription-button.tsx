@@ -30,8 +30,7 @@ export const SubscriptionButton = ({ isPro = false }: { isPro: boolean }) => {
 
   return (
     <Button size="sm" disabled={loading} onClick={onClick}>
-      {isPro ? "Manage Subscription" : "Upgrade"}
-      {!isPro && <Sparkles className="w-4 h-4 ml-2 fill-white" />}
+      {isPro ? "Manage Subscription" : "Upgrade To Pro"}
     </Button>
   );
 };
