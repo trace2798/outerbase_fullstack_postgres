@@ -154,8 +154,8 @@ export async function POST(req: Request) {
 
     // Add review and its associated book to the array
     reviewsWithBooks.push({
-      review: `Review ${review.id}: ${review.title}, ${review.content}, Book database id for  on which the review is: ${review.book_id}, ${review.createdAt}`,
-      book: `Book: ${bookForThisReview.name}, ${bookForThisReview.author}, ${bookForThisReview.createdAt}, Database id for book:${bookForThisReview.id}`,
+      review: `Review ${review.id}: ${review.title}, ${review.content}, book database id: ${review.book_id}, ${review.createdAt}`,
+      book: `${bookForThisReview.name} written by ${bookForThisReview.author}`,
     });
   }
 
@@ -185,18 +185,34 @@ export async function POST(req: Request) {
     //     content: `You have added the following book: Book: ${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id}`,
     //   });
     // }
+    ///////////working
+    // let bookList = "";
+
+    // // Construct a list of all books added
+    // for (let book of books.response.items) {
+    //   bookList += `${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id}\n`;
+    // }
+
+    // for (let item of reviewsWithBooks) {
+    //   // Push review and its associated book, and the list of all books added
+    //   messages.push({
+    //     role: "system",
+    //     content: `As a data analyst named Fionaa, your task is to answer questions based on the data added by the user. Reviews added by the user,${item.review} and its associated book: ${item.book}. Books added by the user, Books:\n${bookList}. User can review on books added by other's too.`,
+    //   });
+    // }
+    ///////
     let bookList = "";
 
     // Construct a list of all books added
     for (let book of books.response.items) {
-      bookList += `${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id}\n`;
+      bookList += `${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id} `;
     }
 
     for (let item of reviewsWithBooks) {
       // Push review and its associated book, and the list of all books added
       messages.push({
         role: "system",
-        content: `As a data analyst named Fionaa, your task is to answer questions based on the data added by the user. Reviews added by the user,${item.review} and its associated book: ${item.book}. Books added by the user, Books:\n${bookList}. User can review on books added by other's too.`,
+        content: `As a data analyst named Fionaa, your task is to answer questions based on the data (books and reviews) added by the user. Reviews added by the user,${item.review} on ${item.book}. Books added by the user, Books: ${bookList}.`,
       });
     }
     console.log(messages, "MESSAGES");
