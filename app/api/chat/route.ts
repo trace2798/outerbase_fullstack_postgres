@@ -172,20 +172,34 @@ export async function POST(req: Request) {
       return new NextResponse("Messages are required", { status: 400 });
     }
 
-    // Add each review with its associated book to the messages
-    for (let item of reviewsWithBooks) {
-      messages.push({
-        role: "system",
-        content: `As a data analyst named Fionaa, your task is to answer questions based on the following data: ${item.review} and its associated book: ${item.book}. TRY TO BE AS PRECISE as possible.`,
-      });
-    }
+    // // Add each review with its associated book to the messages
+    // for (let item of reviewsWithBooks) {
+    //   messages.push({
+    //     role: "system",
+    //     content: `As a data analyst named Fionaa, your task is to answer questions based on the following data: ${item.review} and its associated book: ${item.book}. TRY TO BE AS PRECISE as possible and friendly.`,
+    //   });
+    // }
+    // for (let book of books.response.items) {
+    //   messages.push({
+    //     role: "system",
+    //     content: `You have added the following book: Book: ${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id}`,
+    //   });
+    // }
+    let bookList = "";
+
+    // Construct a list of all books added
     for (let book of books.response.items) {
-      messages.push({
-        role: "system",
-        content: `You have added the following book: Book: ${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id}`,
-      });
+      bookList += `${book.name}, ${book.author}, ${book.createdAt}, Database id for book:${book.id}\n`;
     }
 
+    for (let item of reviewsWithBooks) {
+      // Push review and its associated book, and the list of all books added
+      messages.push({
+        role: "system",
+        content: `As a data analyst named Fionaa, your task is to answer questions based on the data added by the user. Reviews added by the user,${item.review} and its associated book: ${item.book}. Books added by the user, Books:\n${bookList}. User can review on books added by other's too.`,
+      });
+    }
+    console.log(messages, "MESSAGES");
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages,

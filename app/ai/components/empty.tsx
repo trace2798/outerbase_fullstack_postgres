@@ -9,11 +9,16 @@ import Typewriter from "typewriter-effect";
 const exampleMessages = [
   {
     heading: "Ask you data a question",
-    message: `How many books have I added?`,
+    message: `Tell me about my data`,
   },
   {
     heading: "Ask about books you have added",
     message: "What are the names of the books I have added?",
+  },
+  {
+    heading: "Ask for numbers",
+    message:
+      "Can you tell me about the numbers of books and reviews I have added?",
   },
 ];
 
