@@ -24,7 +24,6 @@ export async function POST(req: Request) {
   console.log(books, "INSIDE API");
   const bookDetails = books.response.items
     .map((book: any, index: any) => {
-      // Replace this with actual properties of the book object
       return `Book ${index + 1}: ${book.name}, ${book.author}, ${
         book.createdAt
       }, Database id for book:${book.id}`;
@@ -45,12 +44,10 @@ export async function POST(req: Request) {
   const reviews = await reviewsByUserId.json();
   const reviewDetails = reviews.response.items
     .map((review: any, index: any) => {
-      return `Review ${index + 1}: ${review.title}, ${
-        review.content
-      }, Database id for book: ${review.book_id}, ${review.createdAt}`;
+      return `Review ${review.id}: ${review.title}, ${review.content}, Book database id for  on which the review is: ${review.book_id}, ${review.createdAt}`;
     })
     .join(", ");
-  console.log(reviewDetails, "SUMMARY DETAIL");
+  console.log(reviewDetails, "review DETAIL");
 
   const allBooks = await fetch(
     `https://middle-indigo.cmd.outerbase.io/getAllBooks`,
@@ -66,8 +63,7 @@ export async function POST(req: Request) {
   console.log(books, "INSIDE API");
   const allbookDetails = allbooks.response.items
     .map((book: any, index: any) => {
-      // Replace this with actual properties of the book object
-      return `Book List from Database:${book.name}, Book Database ID:${book.id}`;
+      return `Book List from Database${book.id}:${book.name}, Book Database ID:${book.id}`;
     })
     .join(", ");
   console.log(allbookDetails, "ALL BOOK DETAIL");
@@ -80,21 +76,13 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // if (!configuration.apiKey) {
-    //   return new NextResponse("OpenAI API Key not configured.", {
-    //     status: 500,
-    //   });
-    // }
-
     if (!messages) {
       return new NextResponse("Messages are required", { status: 400 });
     }
 
-    // Use the data from the endpoint in the messages
     messages.push({
       role: "system",
-      // content: `As a data analyst, your task is to answer questions based on the books add by the user: ${bookDetails} and summaries: ${summaryDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. For reference, here is the list of all the books in the database: ${allbookDetails}.`,
-      content: `As a data analyst named Fionaa, your task is to answer questions based on the books add by the user: ${bookDetails} and reviews: ${reviewDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission. Only for reference: ${allbookDetails}`,
+      content: `As a data analyst named Fionaa, your task is to answer questions based on the books add by the user: ${bookDetails} and reviews: ${reviewDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission.  Try to connect the review book_id with the id from: ${allbookDetails},`,
     });
     console.log(messages, "MESSAGES");
     const response = await openai.chat.completions.create({
