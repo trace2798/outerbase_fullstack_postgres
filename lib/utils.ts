@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { formatDistanceToNowStrict } from 'date-fns'
-import locale from 'date-fns/locale/en-US'
+import { formatDistanceToNowStrict } from "date-fns";
+import locale from "date-fns/locale/en-US";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -53,4 +53,8 @@ export function formatTimeToNow(date: Date): string {
       formatDistance,
     },
   });
+}
+
+export function absoluteUrl(path: string) {
+  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
 }

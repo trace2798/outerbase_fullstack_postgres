@@ -1,6 +1,6 @@
 "use client";
 
-import { Book, Plus, Settings, Bot } from "lucide-react";
+import { Book, Plus, Settings, Bot, DollarSign } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
@@ -35,6 +35,11 @@ export const Sidebar = ({}: SidebarProps) => {
       icon: Bot,
       href: "/ai",
       label: "Chat",
+    },
+    {
+      icon: DollarSign,
+      href: "/payment",
+      label: "Payment",
     },
   ];
 
