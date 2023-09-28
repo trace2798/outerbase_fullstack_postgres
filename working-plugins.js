@@ -773,3 +773,32 @@ window.customElements.define(
 );
 
 
+{
+  values: {
+    query: 'mystery',
+    model: 'rerank-english-v2.0',
+    documents: Array(16) [
+      {
+        text: 
+          'Escape to Hogwarts with the unmissable series that has sparked a lifelong reading journey for children and families all over the world. The magic starts here.Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harrys eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. The magic starts here!These editions of the classic and internationally bestselling Harry Potter series feature thrilling jacket artwork by award-winning illustrator Jonny Duddle. They are the perfect starting point for anyone whos ready to lose themselves in the greatest childrens story of all time.',
+        id: 3,
+        name: 'Harry Potter and the Philosophers Stone'
+      },
+      {
+        text: 
+          'As he climbs into the sidecar of Hagrids motorbike and takes to the skies, leaving Privet Drive for the last time, Harry Potter knows that Lord Voldemort and the Death Eaters are not far behind. The protective charm that has kept Harry safe until now is now broken, but he cannot keep hiding. The Dark Lord is breathing fear into everything Harry loves, and to stop him Harry will have to find and destroy the remaining Horcruxes. The final battle must begin - Harry must stand and face his enemy.These new editions of the classic and internationally bestselling, multi-award-winning series feature instantly pick-up-able new jackets by Jonny Duddle, with huge child appeal, to bring Harry Potter to the next generation of readers. It is time to PASS THE MAGIC ON .',
+        id: 4,
+        name: 'Harry Potter en de Relieken van de Dood'
+      },
+      {
+        text: 
+          'The British East India Company has been bringing in Chinese indentured laborers to work in the tea gardens of Assam and West Bengal. Amidst days of misery and toil, they slowly begin to find contentment in their day-to-day lives. Descended from the slave Ho Han, Mei Lin lives a life of satisfaction with her husband, Pulok Barua. But in 1962, as war broke out in the high Himalayas between India and China, a close family member conspired to have Mei Lin deported to Maoist China. She and thousands of other Chinese Indians will now have to fend for themselves in a land that, despite their origins, is strangely foreign. Can Mei Lin ever return to Pulok again, or to the streets of Makum, her hometown? From the horror-ridden hardships of the labor pens of Assam to the Sino-Indian war, this searing novel tells the unforgettable story of the Chinese Indians, a community condemned by intolerance to obscurity and untold sorrow.',
+        id: 5,
+        name: 'Chinatown Days'
+      },
+    ],
+  
+
+  }
+},
+'BODY BODY'

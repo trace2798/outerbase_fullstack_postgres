@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     console.log(body, "BODY BODY");
     const cohereApiUrl = "https://api.cohere.ai/v1/rerank";
     const cohereApiKey = process.env.COHERE_API_KEY; // Use your environment variable here
-
+    console.log(body.values.documents, "DOCUMENTS");
     const options = {
       method: "POST",
       url: cohereApiUrl,

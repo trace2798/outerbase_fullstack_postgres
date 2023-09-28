@@ -90,21 +90,18 @@ export const NewBookForm = ({}) => {
         throw new Error(errorData.error.description);
       }
 
-      await fetch(
-        `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/sendEmailWithResend`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: values.user_id,
-            author: values.author,
-            name: values.name,
-            user_name: values.user_name,
-          }),
-        }
-      );
+      // await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/semdMail`, {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     user_id: values.user_id,
+      //     author: values.author,
+      //     name: values.name,
+      //     user_name: values.user_name,
+      //   }),
+      // });
       toast({
         description: "Success.",
         duration: 3000,
