@@ -45,7 +45,7 @@ export default function Home() {
             </a>{" "}
             hackathon.{" "}
             <a
-              href="https://shreyas-chaliha.hashnode.dev/"
+              href="https://shreyas-chaliha.hashnode.dev/share-and-review-books-you-love-with-summize"
               target="_blank"
               className="underline hover:cursor-pointer text-base hover:text-indigo-500"
             >
