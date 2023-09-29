@@ -1,24 +1,12 @@
 "use client";
-import { FC } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { ImageUpload } from "@/components/image-upload";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { useUser } from "@clerk/nextjs";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
-import { ImageUpload } from "@/components/image-upload";
 
 import {
   Form,
@@ -28,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { formatTimeToNow } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface RequestSheetProps {
@@ -88,27 +75,10 @@ const RequestSheet: FC<RequestSheetProps> = ({ src, name }) => {
           }),
         }
       );
-      // console.log(response);
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error.description);
       }
-
-      //   await fetch(
-      //     `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/sendEmailWithResend`,
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "content-type": "application/json",
-      //       },
-      //       body: JSON.stringify({
-      //         user_id: values.user_id,
-      //         author: values.author,
-      //         name: values.name,
-      //         user_name: values.user_name,
-      //       }),
-      //     }
-      //   );
       toast({
         description: "Success.",
         duration: 3000,
@@ -148,7 +118,6 @@ const RequestSheet: FC<RequestSheetProps> = ({ src, name }) => {
           <div className="w-full mt-24 flex justify-center">
             <Button size="lg" disabled={isLoading}>
               Submit Form
-              {/* <Wand2 className="w-4 h-4 ml-2" /> */}
             </Button>
           </div>
         </form>

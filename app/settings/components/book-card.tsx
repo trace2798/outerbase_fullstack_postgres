@@ -51,7 +51,9 @@ const BookCard: FC<BookCardProps> = ({
               {generateStars(Math.round(avg_rating))} ({Math.round(avg_rating)}
               /5)
             </h1>
-            <h1>Book Id: {id} (Required for Image change request)</h1>
+            <h1 className="text-red-500">
+              Book Id: {id} (Required for Image change request)
+            </h1>
           </CardDescription>
           <div className="md:w-[250px]">
             <img src={src} alt="book" className="" />

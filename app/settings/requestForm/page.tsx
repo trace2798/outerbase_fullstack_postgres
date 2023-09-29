@@ -73,6 +73,20 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
           }),
         }
       );
+      await fetch(
+        `https://spiritual-aqua.cmd.outerbase.io/imageRequestChangeDiscord`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            book_name: values.name,
+            user_name: values.user_name,
+            book_id: values.change_id,
+          }),
+        }
+      );
       toast({
         description: "Success.",
         duration: 3000,

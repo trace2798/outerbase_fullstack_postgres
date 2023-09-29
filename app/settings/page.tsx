@@ -1,5 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import prismadb from "@/lib/prismadb";
 import { auth, redirectToSignIn } from "@clerk/nextjs";
 import { FC } from "react";
 import TabBookList from "./components/tab-books-list";
@@ -12,18 +11,6 @@ const page: FC<pageProps> = async ({}) => {
   if (!userId) {
     return redirectToSignIn();
   }
-  // console.log(userId);
-  // const books = await prismadb.book.findMany({
-  //   where: {
-  //     user_id: userId,
-  //   },
-  // });
-  // const summaries = await prismadb.summary.findMany({
-  //   where: {
-  //     user_id: userId,
-  //   },
-  // });
-  // console.log(summaries, "SUMMARIES");
   const bookByUserId = await fetch(
     `https://middle-indigo.cmd.outerbase.io/getBooksByUserId?user_id=${userId}`,
     {
