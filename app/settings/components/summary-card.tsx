@@ -123,13 +123,21 @@ const SummaryCard: FC<SummaryCardProps> = ({
                     <span className="sr-only">Open menu</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[160px]">
+                <DropdownMenuContent
+                  align="end"
+                  className="w-[160px] hover:cursor-pointer"
+                >
                   <Link href={`/summary/edit/${id}`}>
                     {" "}
                     <DropdownMenuItem>Edit</DropdownMenuItem>
                   </Link>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={onDelete}>Delete</DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="hover:cursor-pointer"
+                    onClick={onDelete}
+                  >
+                    Delete
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
