@@ -66,7 +66,6 @@ const BookCard: FC<BookCardProps> = ({
                 Change Image Form
               </Button>
             </Link>
-            {/* <RequestSheet src={src} name={name} /> */}
           </div>
           <p className="mt-3 font-ranadeLight">{description}</p>
         </CardContent>

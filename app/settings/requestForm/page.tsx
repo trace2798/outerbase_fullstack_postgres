@@ -84,6 +84,8 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
             book_name: values.name,
             user_name: values.user_name,
             book_id: values.change_id,
+            user_id: values.user_id,
+            change_image: values.change_image,
           }),
         }
       );
@@ -101,6 +103,7 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
       });
     }
   };
+
   return (
     <>
       <div className="h-full p-4 space-y-2 max-w-3xl mx-auto">
@@ -116,7 +119,6 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
                   Add a book to begin discussion
                 </p>
               </div>
-              {/* <Separator className="bg-primary/10" /> */}
             </div>
             <FormField
               name="change_id"

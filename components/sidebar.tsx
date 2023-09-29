@@ -36,11 +36,11 @@ export const Sidebar = ({}: SidebarProps) => {
       href: "/ai",
       label: "Chat",
     },
-    {
-      icon: DollarSign,
-      href: "/payment",
-      label: "Payment",
-    },
+    // {
+    //   icon: DollarSign,
+    //   href: "/payment",
+    //   label: "Payment",
+    // },
   ];
 
   return (

@@ -98,6 +98,9 @@ const page = async ({ params }: BookIdPageProps) => {
               </CardHeader>
               <CardContent>
                 <img src={book.src} alt="book" />
+                <p className="mt-3 text-lg font-ranadeLight underline">
+                  Introduction
+                </p>
                 <p className="mt-3 font-ranadeLight">{book.description}</p>
               </CardContent>
             </Card>
