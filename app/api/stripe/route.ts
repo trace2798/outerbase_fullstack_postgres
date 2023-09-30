@@ -71,7 +71,7 @@ export async function GET() {
         userId,
       },
     });
-
+    console.log(stripeSession, "STRIPE SESSION");
     return new NextResponse(JSON.stringify({ url: stripeSession.url }));
   } catch (error) {
     console.log("[STRIPE_ERROR]", error);
