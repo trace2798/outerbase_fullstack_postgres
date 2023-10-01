@@ -1,8 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Sparkles } from "lucide-react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -16,8 +15,8 @@ export const SubscriptionButton = ({ isPro = false }: { isPro: boolean }) => {
       setLoading(true);
 
       const response = await axios.get("/api/stripe");
-
-      window.location.href = response.data.url;
+      console.log(response.data, "RESPONSE");
+      window.location.href = response.data;
     } catch (error) {
       toast({
         description: "Something went wrong",
