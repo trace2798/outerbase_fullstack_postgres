@@ -1,4 +1,4 @@
-# Summize: Next.js, Clerk, Outerbase
+# Summize: Next.js, Outerbase
 
 ### This repo is for my submission for the Outerbase X Hashnode Hackathon which took place during Septembar 1 - Septembar 30, 2023
 
