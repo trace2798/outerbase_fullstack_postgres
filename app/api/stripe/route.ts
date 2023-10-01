@@ -14,13 +14,6 @@ export async function GET() {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    // const userSubscription = await prismadb.userSubscription.findUnique({
-    //   where: {
-    //     user_id: userId,
-    //   },
-    // });
-    // console.log(userSubscription, "SUBS");
-
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/findStripeSubscription?userId=${userId}`,
       {
@@ -44,35 +37,46 @@ export async function GET() {
       return new NextResponse(JSON.stringify({ url: stripeSession.url }));
     }
 
-    const stripeSession = await stripe.checkout.sessions.create({
-      success_url: settingsUrl,
-      cancel_url: settingsUrl,
-      payment_method_types: ["card"],
-      mode: "subscription",
-      billing_address_collection: "auto",
-      customer_email: user.emailAddresses[0].emailAddress,
-      line_items: [
-        {
-          price_data: {
-            currency: "USD",
-            product_data: {
-              name: "Summize",
-              description: "Review and find books you love",
-            },
-            unit_amount: 1000,
-            recurring: {
-              interval: "month",
-            },
-          },
-          quantity: 1,
+    // const stripeSession = await stripe.checkout.sessions.create({
+    //   success_url: settingsUrl,
+    //   cancel_url: settingsUrl,
+    //   payment_method_types: ["card"],
+    //   mode: "subscription",
+    //   billing_address_collection: "auto",
+    //   customer_email: user.emailAddresses[0].emailAddress,
+    //   line_items: [
+    //     {
+    //       price_data: {
+    //         currency: "USD",
+    //         product_data: {
+    //           name: "Summize",
+    //           description: "Review and find books you love",
+    //         },
+    //         unit_amount: 1000,
+    //         recurring: {
+    //           interval: "month",
+    //         },
+    //       },
+    //       quantity: 1,
+    //     },
+    //   ],
+    //   metadata: {
+    //     userId,
+    //   },
+    // });
+    const response2 = await fetch(
+      `https://daily-beige.cmd.outerbase.io/createStripeSession`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
         },
-      ],
-      metadata: {
-        userId,
-      },
-    });
+      }
+    );
+    const data2 = await response2.json();
+    const stripeSession = data2.url;
     console.log(stripeSession, "STRIPE SESSION");
-    return new NextResponse(JSON.stringify({ url: stripeSession.url }));
+    return new NextResponse(stripeSession);
   } catch (error) {
     console.log("[STRIPE_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
