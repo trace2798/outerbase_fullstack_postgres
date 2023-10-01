@@ -77,7 +77,7 @@ export function SearchSheet() {
         }
       );
       const data = await books.json();
-      console.log(data, "RERANK DATA");
+      //console.log(data, "RERANK DATA");
       // const documentsArray = data.response.items.map(
       //   (item: any) => item.description
       // );
@@ -89,15 +89,15 @@ export function SearchSheet() {
         };
       });
 
-      console.log(documentsArray, "DOCS ARRAY");
+      //console.log(documentsArray, "DOCS ARRAY");
       values.documents = documentsArray;
-      console.log(values, "TOKEN ARRAY");
+      //console.log(values, "TOKEN ARRAY");
       const response = await axios.post("/api/search", {
         values, // Use the converted tokens array
       });
 
       setResults((current) => [...current, response.data]);
-      console.log(response.data);
+      //console.log(response.data);
       toast({
         title: "Success",
         description: "Click to visit the page",

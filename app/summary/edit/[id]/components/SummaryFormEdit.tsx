@@ -61,9 +61,9 @@ export const SummaryFormEdit = ({
   const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
-  console.log(user);
-  console.log(book_id);
-  console.log(user?.id);
+  //console.log(user);
+  //console.log(book_id);
+  //console.log(user?.id);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,7 +84,7 @@ export const SummaryFormEdit = ({
         `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryByIdPut`,
         {
           method: "PUT",
-          // console.log(values);
+          // //console.log(values);
           // await fetch(`${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/updateSummaryById`, {
           //   method: "PATCH",
           headers: {
@@ -119,7 +119,11 @@ export const SummaryFormEdit = ({
 
   return (
     <>
-      <Button onClick={() => router.push("/settings")} variant="ghost" className="mb-10">
+      <Button
+        onClick={() => router.push("/settings")}
+        variant="ghost"
+        className="mb-10"
+      >
         <ChevronLeft className="w-4 h-4" /> Back to settings
       </Button>
 

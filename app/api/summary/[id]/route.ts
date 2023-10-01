@@ -6,7 +6,7 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log(params.id);
+  //console.log(params.id);
   try {
     const { userId } = auth();
 
@@ -22,7 +22,7 @@ export async function DELETE(
 
     return NextResponse.json(companion);
   } catch (error) {
-    console.log("[SUMMARY_DELETE]", error);
+    //console.log("[SUMMARY_DELETE]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

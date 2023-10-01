@@ -24,7 +24,7 @@ const SettingsPage = async () => {
     }
   );
   const data = await response.json();
-  console.log(data, "DATA");
+  //console.log(data, "DATA");
 
   // const paymentMethodsStripe = await fetch(
   //   `https://daily-beige.cmd.outerbase.io/stripeTest`,
@@ -36,7 +36,7 @@ const SettingsPage = async () => {
   //   }
   // );
   // const data2 = await paymentMethodsStripe.json();
-  // console.log(data2, "DATA2");
+  // //console.log(data2, "DATA2");
 
   return (
     <div className="h-full p-4 space-y-2 flex flex-col items-center">

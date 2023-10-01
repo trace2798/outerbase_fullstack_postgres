@@ -20,7 +20,7 @@ export const checkSubscription = async () => {
   );
 
   const data = await response.json();
-  console.log(data, "DATA INSIDE LIB");
+  //console.log(data, "DATA INSIDE LIB");
 
   if (!data.success || !data.response.items.length) {
     return false;

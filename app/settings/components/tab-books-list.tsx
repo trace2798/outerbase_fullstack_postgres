@@ -30,7 +30,7 @@ const TabBookList: FC<TabBookListProps> = async ({
   );
 
   const avg_rating = await avgRating.json();
-  console.log(avg_rating, "AVG_RATING");
+  //console.log(avg_rating, "AVG_RATING");
 
   const generateStars = (rating: number) => {
     let stars = "";

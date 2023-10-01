@@ -56,7 +56,7 @@ const RequestFormPage: FC<RequestFormPageProps> = ({}) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
+      //console.log(values);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/requestForm`,
         {

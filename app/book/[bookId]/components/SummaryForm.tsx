@@ -52,9 +52,9 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
   const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
-  console.log(user);
-  console.log(book_id);
-  console.log(user?.firstName);
+  //console.log(user);
+  //console.log(book_id);
+  //console.log(user?.firstName);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,7 +71,7 @@ export const SummaryForm = ({ book_id }: { book_id: string }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
+      //console.log(values);
       await fetch(
         `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/publishASummaryBasedOnBookId`,
         {

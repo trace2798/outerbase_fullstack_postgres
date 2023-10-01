@@ -28,7 +28,7 @@ const TabSummaryList: FC<TabSummaryListProps> = async ({
     }
   );
   const data = await books.json();
-  console.log(data.response, "DATA");
+  //console.log(data.response, "DATA");
   return (
     <>
       <SummaryCard

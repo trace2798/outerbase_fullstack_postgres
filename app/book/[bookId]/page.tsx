@@ -35,9 +35,9 @@ const page = async ({ params }: BookIdPageProps) => {
       },
     }
   );
-  console.log(books, "BOOKS");
+  //console.log(books, "BOOKS");
   const data = await books.json();
-  console.log(data.response, "DATA");
+  //console.log(data.response, "DATA");
 
   if (data.response === null) {
     return <h1>No Info Found</h1>;
@@ -52,9 +52,9 @@ const page = async ({ params }: BookIdPageProps) => {
       },
     }
   );
-  console.log(summary, "SUMMARY");
+  //console.log(summary, "SUMMARY");
   const summar = await summary.json();
-  console.log(summar.response, "Summaries");
+  //console.log(summar.response, "Summaries");
 
   const avgRating = await fetch(
     `https://middle-indigo.cmd.outerbase.io/averageRatingofSummariesByBookId?book_id=${idInInt}`,
@@ -68,7 +68,7 @@ const page = async ({ params }: BookIdPageProps) => {
   );
 
   const avg_rating = await avgRating.json();
-  console.log(avg_rating, "AVG_RATING");
+  //console.log(avg_rating, "AVG_RATING");
 
   const generateStars = (rating: number) => {
     let stars = "";

@@ -20,7 +20,7 @@ const page: FC<pageProps> = async ({}) => {
       },
     }
   );
-  console.log(bookByUserId, "OUTERBASE COMMAND");
+  //console.log(bookByUserId, "OUTERBASE COMMAND");
   const books = await bookByUserId.json();
 
   const summariesByUserId = await fetch(
@@ -32,8 +32,8 @@ const page: FC<pageProps> = async ({}) => {
       },
     }
   );
-  console.log(summariesByUserId, "OUTERBASE COMMAND Summary");
-  console.log(books, "BOOKS");
+  //console.log(summariesByUserId, "OUTERBASE COMMAND Summary");
+  //console.log(books, "BOOKS");
   const summaries = await summariesByUserId.json();
   return (
     <>

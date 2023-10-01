@@ -9,7 +9,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 
 // export async function POST(req: Request) {
 //   const { userId } = auth();
-//   console.log("1 FIrst ONe");
+//   //console.log("1 FIrst ONe");
 // const bookByUserId = await fetch(
 //   `https://middle-indigo.cmd.outerbase.io/getBooksByUserId?user_id=${userId}`,
 //   {
@@ -21,7 +21,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 // );
 
 //   const books = await bookByUserId.json();
-//   console.log(books, "INSIDE API");
+//   //console.log(books, "INSIDE API");
 //   const bookDetails = books.response.items
 //     .map((book: any, index: any) => {
 //       return `Book ${index + 1}: ${book.name}, ${book.author}, ${
@@ -29,7 +29,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 //       }, Database id for book:${book.id}`;
 //     })
 //     .join(", ");
-//   console.log(bookDetails, "BOOK DETAIL");
+//   //console.log(bookDetails, "BOOK DETAIL");
 
 //   const reviewsByUserId = await fetch(
 //     `https://middle-indigo.cmd.outerbase.io/getSummariesByUserId?user_id=${userId}`,
@@ -40,14 +40,14 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 //       },
 //     }
 //   );
-//   console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
+//   //console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
 //   const reviews = await reviewsByUserId.json();
 //   const reviewDetails = reviews.response.items
 //     .map((review: any, index: any) => {
 //       return `Review ${review.id}: ${review.title}, ${review.content}, Book database id for  on which the review is: ${review.book_id}, ${review.createdAt}`;
 //     })
 //     .join(", ");
-//   console.log(reviewDetails, "review DETAIL");
+//   //console.log(reviewDetails, "review DETAIL");
 
 // const allBooks = await fetch(
 //   `https://middle-indigo.cmd.outerbase.io/getAllBooks`,
@@ -60,13 +60,13 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 // );
 
 //   const allbooks = await allBooks.json();
-//   console.log(books, "INSIDE API");
+//   //console.log(books, "INSIDE API");
 //   const allbookDetails = allbooks.response.items
 //     .map((book: any, index: any) => {
 //       return `Book List from Database${book.id}:${book.name}, Book Database ID:${book.id}`;
 //     })
 //     .join(", ");
-//   console.log(allbookDetails, "ALL BOOK DETAIL");
+//   //console.log(allbookDetails, "ALL BOOK DETAIL");
 //   try {
 //     const { userId } = auth();
 //     const body = await req.json();
@@ -84,7 +84,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 //       role: "system",
 //       content: `As a data analyst named Fionaa, your task is to answer questions based on the books add by the user: ${bookDetails} and reviews: ${reviewDetails} submitted by the user. If the user asks about summaries, try to provide the corresponding book title from their submission.  Try to connect the review book_id with the id from: ${allbookDetails},`,
 //     });
-//     console.log(messages, "MESSAGES");
+//     //console.log(messages, "MESSAGES");
 //     const response = await openai.chat.completions.create({
 //       model: "gpt-3.5-turbo",
 //       messages,
@@ -94,7 +94,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 //     // return NextResponse.json(response.data.choices[0].message);
 //     return new StreamingTextResponse(stream);
 //   } catch (error) {
-//     console.log("[CONVERSATION_ERROR]", error);
+//     //console.log("[CONVERSATION_ERROR]", error);
 //     return new NextResponse("Internal Error", { status: 500 });
 //   }
 // }
@@ -128,7 +128,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 //       },
 //     }
 //   );
-//   console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
+//   //console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
 //   const reviews = await reviewsByUserId.json();
 
 //   // Fetch all books
@@ -217,7 +217,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 //         content: `As a data analyst named Fionaa, your task is to answer questions based on the data (books and reviews) added by the user. Reviews added by the user,${item.review} on ${item.book}. Books added by the user, Books: ${bookList}.`,
 //       });
 //     }
-//     console.log(messages, "MESSAGES");
+//     //console.log(messages, "MESSAGES");
 //     const response = await openai.chat.completions.create({
 //       model: "gpt-3.5-turbo",
 //       messages,
@@ -228,7 +228,7 @@ import { OpenAIStream, StreamingTextResponse } from "ai";
 
 //     return new StreamingTextResponse(stream);
 //   } catch (error) {
-//     console.log("[CONVERSATION_ERROR]", error);
+//     //console.log("[CONVERSATION_ERROR]", error);
 //     return new NextResponse("Internal Error", { status: 500 });
 //   }
 // }
@@ -261,7 +261,7 @@ export async function POST(req: Request) {
       },
     }
   );
-  console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
+  //console.log(reviewsByUserId, "OUTERBASE COMMAND Review");
   const reviews = await reviewsByUserId.json();
 
   // Fetch all books
@@ -327,7 +327,7 @@ export async function POST(req: Request) {
       });
     }
 
-    console.log(messages, "MESSAGES");
+    //console.log(messages, "MESSAGES");
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -339,7 +339,7 @@ export async function POST(req: Request) {
 
     return new StreamingTextResponse(stream);
   } catch (error) {
-    console.log("[CONVERSATION_ERROR]", error);
+    //console.log("[CONVERSATION_ERROR]", error);
 
     return new NextResponse("Internal Error", { status: 500 });
   }

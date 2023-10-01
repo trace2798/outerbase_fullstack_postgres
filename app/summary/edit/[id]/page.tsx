@@ -8,7 +8,7 @@ interface pageProps {
 
 const page = async ({ params }: pageProps) => {
   const idInInt = Number(params.id);
-  console.log(idInInt);
+  //console.log(idInInt);
 
   const summariesById = await fetch(
     `https://middle-indigo.cmd.outerbase.io/getSummaryById?id=${idInInt}`,
@@ -19,10 +19,10 @@ const page = async ({ params }: pageProps) => {
       },
     }
   );
-  console.log(summariesById, "OUTERBASE COMMAND Summary");
+  //console.log(summariesById, "OUTERBASE COMMAND Summary");
 
   const summar = await summariesById.json();
-  console.log(summar, "SUMMAR");
+  //console.log(summar, "SUMMAR");
 
   return (
     <>

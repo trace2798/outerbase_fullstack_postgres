@@ -24,9 +24,9 @@ export async function GET() {
       }
     );
     const data = await response.json();
-    console.log(data, "DATA");
+    //console.log(data, "DATA");
     const userSubscription = data.response.items[0];
-    console.log(userSubscription, "SUBS");
+    //console.log(userSubscription, "SUBS");
     //If the user have a valid subscription, then redirect to the billing portal page
     if (userSubscription && userSubscription.stripe_customer_id) {
       const stripeSession = await stripe.billingPortal.sessions.create({
@@ -34,7 +34,7 @@ export async function GET() {
         return_url: settingsUrl,
       });
       const sessionUrl = stripeSession.url;
-      console.log(sessionUrl, "URL");
+      //console.log(sessionUrl, "URL");
       return new NextResponse(sessionUrl);
     }
     // const stripeSession = await stripe.checkout.sessions.create({
@@ -77,10 +77,10 @@ export async function GET() {
     const stripeSessionCommandData =
       await gettingSessionUrlWithOuterbase.json();
     const stripeSession = stripeSessionCommandData.url;
-    console.log(stripeSession, "STRIPE SESSION");
+    //console.log(stripeSession, "STRIPE SESSION");
     return new NextResponse(stripeSession);
   } catch (error) {
-    console.log("[STRIPE_ERROR]", error);
+    //console.log("[STRIPE_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

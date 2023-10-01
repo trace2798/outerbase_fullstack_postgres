@@ -49,9 +49,9 @@ const SummaryCard: FC<SummaryCardProps> = ({
   const onDelete = async () => {
     try {
       // await axios.delete(`/api/summary/${id}`);
-      // console.log(id_to_delete);
+      // //console.log(id_to_delete);
       //this is the command to every all summaries by userId
-      // console.log(id_to_delete, "inside delete");
+      // //console.log(id_to_delete, "inside delete");
       await fetch(
         `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/deleteSummaryById`,
 

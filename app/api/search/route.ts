@@ -2,14 +2,14 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  console.log("API");
+  //console.log("API");
   try {
-    console.log(req.body, "BODY BODY BODY");
+    //console.log(req.body, "BODY BODY BODY");
     const body = await req.json();
-    console.log(body, "BODY BODY");
+    //console.log(body, "BODY BODY");
     const cohereApiUrl = "https://api.cohere.ai/v1/rerank";
     const cohereApiKey = process.env.COHERE_API_KEY; // Use your environment variable here
-    console.log(body.values.documents, "DOCUMENTS");
+    //console.log(body.values.documents, "DOCUMENTS");
     const options = {
       method: "POST",
       url: cohereApiUrl,
@@ -26,13 +26,13 @@ export async function POST(req: Request) {
         top_n: body.values.top_n,
       },
     };
-    console.log(options, "SEARCH");
+    //console.log(options, "SEARCH");
     const response = await axios.request(options);
-    console.log(response, "SEARCH BAR");
+    //console.log(response, "SEARCH BAR");
     const responseData = response.data;
     return NextResponse.json(responseData);
   } catch (error) {
-    console.log("[ReRank_SEARCH_ERROR]", error);
+    //console.log("[ReRank_SEARCH_ERROR]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

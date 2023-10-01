@@ -52,7 +52,7 @@ export const FeedbackForm: React.FC<FeedbackFormProps> = ({}) => {
 
   const onSubmit: SubmitHandler<FormData> = async (values) => {
     try {
-      console.log(values);
+      //console.log(values);
       //   await axios.post(`/api/feedback`, values);
       await fetch("https://middle-indigo.cmd.outerbase.io/addFeedback", {
         method: "POST",

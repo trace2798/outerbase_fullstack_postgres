@@ -49,7 +49,7 @@ export const NewBookForm = ({}) => {
   const { toast } = useToast();
   const router = useRouter();
   const { user } = useUser();
-  console.log(user);
+  //console.log(user);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,7 +66,7 @@ export const NewBookForm = ({}) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values);
+      //console.log(values);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_OUTERBASE_SECRET}/publishABook`,
         {
@@ -84,7 +84,7 @@ export const NewBookForm = ({}) => {
           }),
         }
       );
-      // console.log(response);
+      // //console.log(response);
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error.description);

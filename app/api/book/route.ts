@@ -31,7 +31,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(book);
   } catch (error) {
-    console.log("[BOOK_POST]", error);
+    //console.log("[BOOK_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
