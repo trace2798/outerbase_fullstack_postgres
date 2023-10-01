@@ -327,20 +327,35 @@ export async function POST(req: Request) {
       });
     }
 
-    //console.log(messages, "MESSAGES");
+    console.log(messages, "MESSAGES");
 
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages,
       stream: true,
+      max_tokens: 500,
     });
+
+    // const response2 = await fetch(
+    //   `https://daily-beige.cmd.outerbase.io/callOpenAI`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "content-type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       prompt: messages,
+    //     }),
+    //   }
+    // );
+    // const data2 = await response2.json();
+    // console.log(data2, "DATA2");
 
     const stream = OpenAIStream(response);
 
     return new StreamingTextResponse(stream);
   } catch (error) {
     //console.log("[CONVERSATION_ERROR]", error);
-
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
