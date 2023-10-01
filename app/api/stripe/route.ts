@@ -33,8 +33,9 @@ export async function GET() {
         customer: userSubscription.stripe_customer_id,
         return_url: settingsUrl,
       });
-      console.log(JSON.stringify({ url: stripeSession.url }), "URL FIRST");
-      return new NextResponse(JSON.stringify({ url: stripeSession.url }));
+      const sessionUrl = stripeSession.url;
+      console.log(sessionUrl, "URL");
+      return new NextResponse(sessionUrl);
     }
 
     // const stripeSession = await stripe.checkout.sessions.create({
@@ -64,7 +65,7 @@ export async function GET() {
     //     userId,
     //   },
     // });
-    const response2 = await fetch(
+    const gettingSessionUrlWithOuterbase = await fetch(
       `https://daily-beige.cmd.outerbase.io/createStripeSession`,
       {
         method: "POST",
@@ -73,8 +74,9 @@ export async function GET() {
         },
       }
     );
-    const data2 = await response2.json();
-    const stripeSession = data2.url;
+    const stripeSessionCommandData =
+      await gettingSessionUrlWithOuterbase.json();
+    const stripeSession = stripeSessionCommandData.url;
     console.log(stripeSession, "STRIPE SESSION");
     return new NextResponse(stripeSession);
   } catch (error) {
