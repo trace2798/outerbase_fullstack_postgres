@@ -30,17 +30,6 @@ export async function POST(req: Request) {
       return new NextResponse("User id is required", { status: 400 });
     }
 
-    // await prismadb.userSubscription.create({
-    //   data: {
-    //     user_id: session?.metadata?.userId,
-    //     stripeSubscriptionId: subscription.id,
-    //     stripeCustomerId: subscription.customer as string,
-    //     stripePriceId: subscription.items.data[0].price.id,
-    //     stripeCurrentPeriodEnd: new Date(
-    //       subscription.current_period_end * 1000
-    //     ),
-    //   },
-    // });
     let data = {
       user_id: session?.metadata?.userId,
       stripe_subscription_id: subscription.id,
@@ -68,17 +57,6 @@ export async function POST(req: Request) {
       session.subscription as string
     );
 
-    // await prismadb.userSubscription.update({
-    //   where: {
-    //     stripeSubscriptionId: subscription.id,
-    //   },
-    //   data: {
-    //     stripePriceId:
-    //     stripeCurrentPeriodEnd: new Date(
-    //       subscription.current_period_end * 1000
-    //     ),
-    //   },
-    // });
     await fetch(
       "https://middle-indigo.cmd.outerbase.io/updateUserSubscription",
       {

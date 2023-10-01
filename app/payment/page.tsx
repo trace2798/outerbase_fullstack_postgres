@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { checkSubscription } from "@/lib/subscription";
 import { auth, currentUser } from "@clerk/nextjs";
-import { BellRing } from "lucide-react";
 
 const SettingsPage = async () => {
   const isPro = await checkSubscription();
