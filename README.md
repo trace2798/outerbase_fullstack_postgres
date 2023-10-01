@@ -2,7 +2,7 @@
 
 ### This repo is for my submission for the Outerbase X Hashnode Hackathon which took place during Septembar 1 - Septembar 30, 2023
 
-#### Hashnode article: [Share and Review books you love with "Summize"](https://shreyas-chaliha.hashnode.dev/share-and-review-books-you-love-with-summize) 
+#### Hashnode article: [Share and Review books you love with "Summize"](https://shreyas-chaliha.hashnode.dev/share-and-review-books-you-love-with-summize)
 
 ## Getting Started
 
@@ -18,7 +18,9 @@
 ```shell
 git clone https://github.com/trace2798/outerbase_fullstack_postgres.git
 ```
+
 ### Command
+
 To make the application completely functioning you will need to have the values for the env mentioned below and the Commands as described in the article as mentioned above.
 
 ### Install packages
@@ -60,14 +62,12 @@ npm run dev
 
 Running commands with npm `npm run [command]`
 
-| command         | description                              |
-| :-------------- | :--------------------------------------- |
-| `dev`           | Starts a development instance of the app |
-| `build`         | To build your application                |
-| `start`         | Starts a production  instance of the app |
-
+| command | description                              |
+| :------ | :--------------------------------------- |
+| `dev`   | Starts a development instance of the app |
+| `build` | To build your application                |
+| `start` | Starts a production instance of the app  |
 
 ## For env value and functionality of this application I have wrote a very detailed article on [hashnode](https://shreyas-chaliha.hashnode.dev/share-your-milestones-and-memories-with-post-it)
 
-
-Youtube Demo Link: [Post iT](https://www.youtube.com/watch?v=iXuKCdvHBLY)
+Youtube Demo Link: [Summize](https://youtu.be/mJCZH2zumqk)
